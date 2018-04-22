@@ -3,4 +3,14 @@
   --lightGray: #999999;
   --gray: ##5f5f5f;
   --darkGray: #333333;
+  --darkBlue: #1b6de0;
+  --blue: #1b6de0;
+}
+
+.darkGray {
+  color: var(--darkGray);
+}
+
+.darkBlue {
+  color: var(--darkBlue);
 }

@@ -1,0 +1,82 @@
+/* aliasing */
+
+.antialiased {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* fonts */
+
+.sansSerif {
+  font-family: Arial, sans-serif;
+}
+
+/* kerning */
+
+.letterSpacing {
+  letter-spacing: -0.4px;
+}
+
+/* leading */
+
+.leadingShort {
+  line-height: 1.2;
+}
+
+.leadingTall {
+  line-height: 1.5;
+}
+
+/* font weight */
+
+.fontWeightNormal {
+  font-weight: normal;
+}
+
+.fontWeightBold {
+  font-weight: 700;
+}
+
+/* emphasis */
+
+.fontStyleRegular {
+  font-style: normal;
+}
+
+.fontStyleItalic {
+  font-style: italic;
+}
+
+/* decorations */
+
+.underline {
+  text-decoration: underline;
+}
+
+.noUnderline {
+  text-decoration: none;
+}
+
+/* overflow */
+
+.breakWord {
+  hyphens: auto;
+  word-wrap: break-word;
+}
+
+.truncate {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* alignment */
+
+.alignCenter {
+  text-align: center;
+}
+
+.textJustify {
+  text-align: justify;
+}
