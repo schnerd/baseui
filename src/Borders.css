@@ -1,0 +1,13 @@
+:root {
+  --border-width: 1px;
+  --border-color: #cccccc;
+  --border-radius: 4px;
+}
+
+.border {
+  border: var(--border-width) solid var(--border-color);
+}
+
+.rounded {
+  border-radius: var(--border-radius);
+}
