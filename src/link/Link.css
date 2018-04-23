@@ -1,0 +1,10 @@
+.link {
+  composes: noUnderline from '../Typography.css';
+  color: inherit;
+  outline: none;
+}
+
+.link:hover,
+.link:focus {
+  text-decoration: underline;
+}
