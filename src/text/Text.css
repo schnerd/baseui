@@ -1,0 +1,31 @@
+:root {
+  --font-size-1: 12px;
+  --font-size-2: 14px;
+  --font-size-3: 16px;
+  --font-size-4: 18px;
+  --font-size-5: 21px;
+}
+
+.Text {
+  composes: antialiased sansSerif letterSpacing from '../Typography.css';
+}
+
+.fontSize1 {
+  font-size: var(--font-size-1);
+}
+
+.fontSize2 {
+  font-size: var(--font-size-2);
+}
+
+.fontSize3 {
+  font-size: var(--font-size-3);
+}
+
+.fontSize4 {
+  font-size: var(--font-size-4);
+}
+
+.fontSize5 {
+  font-size: var(--font-size-5);
+}

@@ -73,10 +73,52 @@
 
 /* alignment */
 
-.alignCenter {
+.center {
   text-align: center;
 }
 
-.textJustify {
+.justify {
   text-align: justify;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+/* overflow */
+
+.breakWord {
+  hyphens: auto;
+  word-wrap: break-word;
+}
+
+.truncate {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* emphasis */
+
+.fontStyleRegular {
+  font-style: normal;
+}
+
+.fontStyleItalic {
+  font-style: italic;
+}
+
+/* font weight */
+
+.fontWeightNormal {
+  font-weight: normal;
+}
+
+.fontWeightBold {
+  font-weight: 700;
 }

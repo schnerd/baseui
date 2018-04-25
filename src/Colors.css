@@ -18,3 +18,7 @@
 .white {
   color: var(--white);
 }
+
+.gray {
+  color: var(--gray);
+}
