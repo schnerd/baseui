@@ -14,3 +14,7 @@
 .darkBlue {
   color: var(--darkBlue);
 }
+
+.white {
+  color: var(--white);
+}

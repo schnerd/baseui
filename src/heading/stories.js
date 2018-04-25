@@ -2,9 +2,13 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {withKnobs, number, text, boolean} from '@storybook/addon-knobs/react';
+import {withInfo} from '@storybook/addon-info';
 import Heading from './Heading';
 
 const stories = storiesOf('Heading', module);
+const info = (story, context) => withInfo('common info')(story)(context);
+
+stories.addDecorator(info);
 stories.addDecorator(withKnobs);
 
 stories

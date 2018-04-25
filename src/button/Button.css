@@ -1,0 +1,48 @@
+.button {
+  composes: noBorder from '../Borders.css';
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+:root {
+  --darkGray: #333333;
+  --darkBlue: #1b6de0;
+}
+
+.sm {
+  padding: 10px 14px;
+}
+
+.md {
+  padding: 11px 14px;
+}
+
+.lg {
+  padding: 14px;
+}
+
+.disabled {
+  cursor: default;
+}
+
+.darkGray:hover,
+.darkGray:focus {
+  background-color: color(var(--darkGray) blackness(+6%));
+}
+
+.darkGray:active {
+  background-color: color(var(--darkGray) blackness(+10%));
+}
+
+.darkBlue {
+  background-color: var(--darkBlue);
+}
+
+.darkBlue:hover,
+.darkBlue:focus {
+  background-color: color(var(--darkBlue) blackness(+6%));
+}
+
+.darkBlue:active {
+  background-color: color(var(--darkBlue) blackness(+10%));
+}

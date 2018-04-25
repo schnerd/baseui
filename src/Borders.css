@@ -11,3 +11,7 @@
 .rounded {
   border-radius: var(--border-radius);
 }
+
+.noBorder {
+  border: none;
+}

@@ -8,7 +8,7 @@ import typography from '../Typography.css';
 type Props = {|
   size?: 1 | 2 | 3 | 4 | 5 | 6,
   children?: React.Node,
-  color?: 'darkGray' | 'darkBlue',
+  color?: 'darkGray' | 'darkBlue' | 'white',
   overflow?: 'normal' | 'breakWord',
   truncate?: boolean,
 |};
