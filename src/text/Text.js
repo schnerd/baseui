@@ -3,14 +3,13 @@ import * as React from 'react';
 import classnames from 'classnames';
 import styles from './Text.css';
 import typography from '../Typography.css';
-import colors from '../Colors.css';
 
 type Props = {|
   align?: 'left' | 'right' | 'center' | 'justify',
   size?: 1 | 2 | 3 | 4 | 5,
   bold?: boolean,
   children?: React.Node,
-  color?: 'gray',
+  color?: 'gray' | 'darkBlue',
   italic?: boolean,
   overflow?: 'normal' | 'breakWord',
   truncate?: boolean,
@@ -29,7 +28,7 @@ export default function Text({
   const classes = classnames(
     styles.Text,
     styles[`fontSize${size}`],
-    colors[color],
+    styles[color],
     typography[align],
     italic && typography.fontStyleItalic,
     !italic && typography.fontStyleNormal,

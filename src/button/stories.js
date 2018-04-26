@@ -13,9 +13,11 @@ stories.addDecorator(info);
 stories.addDecorator(withKnobs);
 
 stories.add('with Heading', () => (
-  <Button onClick={action('clicked')}>
-    <Heading size={1} color="white">
-      Hello Button
-    </Heading>
-  </Button>
+  <div style={{width: 256}}>
+    <Button onClick={action('clicked')}>
+      <Heading size={1} color="white">
+        Hello Button
+      </Heading>
+    </Button>
+  </div>
 ));

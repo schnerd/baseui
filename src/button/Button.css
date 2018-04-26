@@ -2,23 +2,12 @@
   composes: noBorder from '../Borders.css';
   border-radius: 4px;
   cursor: pointer;
+  width: 100%;
 }
 
 :root {
   --darkGray: #333333;
   --darkBlue: #1b6de0;
-}
-
-.sm {
-  padding: 10px 14px;
-}
-
-.md {
-  padding: 11px 14px;
-}
-
-.lg {
-  padding: 14px;
 }
 
 .disabled {

@@ -12,6 +12,19 @@ module.exports = {
         ],
         include: path.resolve(__dirname, '../'),
       },
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          'file-loader',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              bypassOnDebug: true,
+            },
+          },
+        ],
+        include: path.resolve(__dirname, '../'),
+      },
     ],
   },
 };

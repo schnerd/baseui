@@ -4,6 +4,8 @@
   --font-size-3: 16px;
   --font-size-4: 18px;
   --font-size-5: 21px;
+  --gray: #666666;
+  --darkBlue: #1b6de0;
 }
 
 .Text {
@@ -28,4 +30,12 @@
 
 .fontSize5 {
   font-size: var(--font-size-5);
+}
+
+.gray {
+  color: var(--gray);
+}
+
+.darkBlue {
+  color: var(--darkBlue);
 }

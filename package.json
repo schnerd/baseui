@@ -56,6 +56,7 @@
     "eslint-plugin-react": "^7.7.0",
     "flow-bin": "^0.67.1",
     "husky": "^0.14.3",
+    "image-webpack-loader": "^4.2.0",
     "postcss-cssnext": "^3.1.0",
     "postcss-mixins": "^6.2.0",
     "postcss-partial-import": "^4.1.0",

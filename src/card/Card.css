@@ -1,12 +1,25 @@
 .card {
+  composes: border from '../Borders.css';
   composes: rounded from '../Borders.css';
-  background: rgba(0, 0, 0, 0.064);
+  composes: dropShadow from '../Borders.css';
   height: 100%;
-  opacity: 0;
-  pointer-events: none;
+  width: 328px;
+  composes: pointer from '../Cursor.css';
+}
+
+.cardBody {
+  composes: margin1 from '../Space.css';
+}
+
+.cardAction {
+  margin-top: 40px;
   width: 100%;
 }
 
 .hover {
   animation: animateIn 0.2s cubic-bezier(0.31, 1, 0.34, 1) forwards;
+}
+
+img {
+  width: 100%;
 }

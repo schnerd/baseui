@@ -39,7 +39,7 @@ export default class Card extends React.Component<Props, State> {
     const {hovered} = this.state;
 
     const classes = classnames(styles.card, {
-      [styles.hovered]: active || (active == null && hovered),
+      [styles.hover]: active || (active == null && hovered),
     });
 
     if (thumbnail) {
@@ -57,11 +57,17 @@ export default class Card extends React.Component<Props, State> {
       );
     }
     return (
-      <div className={classes}>
+      <div
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
+        className={classes}
+      >
         {image}
-        {headline}
-        {text}
-        {action}
+        <div className={classnames(styles.cardBody)}>
+          {headline}
+          {text}
+          <div className={classnames(styles.cardAction)}>{action}</div>
+        </div>
       </div>
     );
   }
