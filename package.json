@@ -9,7 +9,7 @@
     "lint": "eslint ./",
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "test": "npm run lint",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -s ./static -p 6006",
     "build-storybook": "build-storybook",
     "precommit": "pretty-quick --staged && npm run test",
     "build": "rollup -c rollup.config.js",
@@ -33,6 +33,7 @@
     "@storybook/addon-links": "^3.3.15",
     "@storybook/addons": "^3.3.15",
     "@storybook/react": "^3.3.15",
+    "@uber/react-button": "^14.4.13",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.2",
@@ -64,6 +65,9 @@
   },
   "dependencies": {
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "styletron": "^3.0.4",
+    "styletron-engine-atomic": "^1.0.5",
+    "styletron-react": "^4.1.0"
   }
 }
