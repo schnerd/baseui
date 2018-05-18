@@ -7,3 +7,6 @@ build
 stats.html
 storybook-static
 coverage
+
+# REMOVE LATER
+.idea
