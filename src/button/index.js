@@ -1,11 +1,5 @@
-/* @flow */
+// @flow
 
-import React from 'react';
-
-type Props = {
-  onClick: () => void,
-};
-
-export default ({onClick}: Props) => (
-  <button onClick={onClick}>it is a button!</button>
-);
+export {default as Button} from './button';
+export {default as ButtonLink} from './button-link';
+export {default as ButtonGroup} from './button-group';
