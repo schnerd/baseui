@@ -4,12 +4,10 @@ import React from 'react';
 import {StyledButton} from './styles';
 
 type Props = {
-  disabled?: boolean,
-  $secondary?: boolean,
-  $tertiary?: boolean,
-  $minimal?: boolean,
   $compact?: boolean,
+  $kind?: 'primary' | 'secondary' | 'tertiary' | 'minimal',
   $round?: boolean,
+  disabled?: boolean,
 };
 
 export default function Button(props: Props) {
@@ -17,10 +15,8 @@ export default function Button(props: Props) {
 }
 
 Button.defaultProps = {
-  disabled: false,
-  $secondary: false,
-  $tertiary: false,
-  $minimal: false,
   $compact: false,
+  $kind: 'primary',
   $round: false,
+  disabled: false,
 };

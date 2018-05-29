@@ -1,20 +1,21 @@
 // @flow
 
 import React from 'react';
+import {styled} from 'styletron-react';
 import {storiesOf} from '@storybook/react';
-import {Button, ButtonLink, ButtonGroup} from '.';
+import {Button, ButtonLink} from '.';
 import {IconRightArrow, IconMagnifyingGlass, IconX} from '../icon';
 
-const sampleStyle = {
+const Sample = styled('div', {
   display: 'grid',
   gridGap: '1em',
   gridTemplateColumns: 'auto',
   justifyItems: 'start',
-};
+});
 
 function ButtonSample(props) {
   return (
-    <div style={sampleStyle}>
+    <Sample>
       <Button {...props}>Button Label</Button>
       <Button {...props}>
         Button Label <IconRightArrow />
@@ -28,13 +29,13 @@ function ButtonSample(props) {
       <Button {...props} $round>
         <IconMagnifyingGlass />
       </Button>
-    </div>
+    </Sample>
   );
 }
 
 function ButtonLinkSample(props) {
   return (
-    <div style={sampleStyle}>
+    <Sample>
       <ButtonLink {...props}>Button Label</ButtonLink>
       <ButtonLink {...props}>
         Button Label <IconRightArrow />
@@ -48,27 +49,20 @@ function ButtonLinkSample(props) {
       <ButtonLink {...props} $round>
         <IconMagnifyingGlass />
       </ButtonLink>
-    </div>
+    </Sample>
   );
 }
 
 storiesOf('Button', module)
   .add('Primary', () => <ButtonSample />)
   .add('Primary (Compact)', () => <ButtonSample $compact />)
-  .add('Secondary', () => <ButtonSample $secondary />)
-  .add('Secondary (Compact)', () => <ButtonSample $secondary $compact />)
-  .add('Tertiary', () => <ButtonSample $tertiary />)
-  .add('Tertiary (Compact)', () => <ButtonSample $tertiary $compact />)
-  .add('Minimal', () => <ButtonSample $minimal />)
-  .add('Minimal (Compact)', () => <ButtonSample $minimal $compact />)
+  .add('Secondary', () => <ButtonSample $kind="secondary" />)
+  .add('Secondary (Compact)', () => <ButtonSample $kind="secondary" $compact />)
+  .add('Tertiary', () => <ButtonSample $kind="tertiary" />)
+  .add('Tertiary (Compact)', () => <ButtonSample $kind="tertiary" $compact />)
+  .add('Minimal', () => <ButtonSample $kind="minimal" />)
+  .add('Minimal (Compact)', () => <ButtonSample $kind="minimal" $compact />)
+  .add('Disabled', () => <ButtonSample disabled />)
+  .add('Disabled (Compact)', () => <ButtonSample $compact disabled />)
   .add('Button Link', () => <ButtonLinkSample />)
-  .add('Button Link (Compact)', () => <ButtonLinkSample $compact />)
-  .add('Button Group', () => (
-    <div style={sampleStyle}>
-      <ButtonGroup>
-        <Button>Button Label</Button>
-        <Button>Button Label</Button>
-        <Button>Button Label</Button>
-      </ButtonGroup>
-    </div>
-  ));
+  .add('Button Link (Compact)', () => <ButtonLinkSample $compact />);
