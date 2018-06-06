@@ -30,9 +30,9 @@
   Content to render within the popover when it's shown. Required.
 * `children: node`:
   Content that should trigger the popover to be shown (also acts as the anchor against which the popover will be positioned)
-* `onMouseOverDelay: number`:
+* `onMouseEnterDelay: number`:
   Number of milliseconds to wait before showing the popover after mousing enters the trigger elment. Defaults to 0.
-* `onMouseOutDelay: number`:
+* `onMouseLeaveDelay: number`:
   Number of milliseconds to wait before hiding the popover after the mouse leaves the trigger element. Defaults to 0.
 * `showArrow: boolean`:
   Whether or not to show the arrow pointing from the popover to the trigger. Defaults to false.
@@ -63,18 +63,31 @@
   handler for events on trigger element
 * `onMouseLeave: func`:
   handler for events on trigger element
+* `onClickOutside: func`:
+  handler for clicks outside the anchor/popover elements
+* `onEsc: func`:
+  handler for 'Escape' keypress events
 
 ### Presentational components props API
 
-TBD
+##### `PopoverBody`
+
+* `$positionStyles`: Positions the popover body, usually a `transform` style (these styles come from popper.js library)
+* `$showArrow`: Whether or not an arrow is shown on the popover pointing to the anchor
+* `$placement`: Runtime placement (may differ from placement prop if popover would have overflowed viewport)
+* `$ref`: React ref for the popover element (should be passed down to dom element)
+
+##### `PopoverPadding`
+
+No props
 
 ### Usage
 
 ```js
-import {StatefulPopover as Popover, StyledPopover} from './index';
+import {StatefulPopover as Popover, StyledPopoverBody} from './index';
 import {withStyle} from '../helpers';
 
-const CustomStyledPopover = withStyle(StyledPopover, {
+const CustomPopoverBody = withStyle(StyledPopoverBody, {
   borderColor: 'red',
 });
 
@@ -86,7 +99,7 @@ export default () => {
         placement="topLeft"
         content={popoverContent}
         components={{
-          Popover: CustomStyledPopover,
+          PopoverBody: CustomPopoverBody,
         }}
       >
         <span>Hover me!</span>
