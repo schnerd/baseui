@@ -1,5 +1,9 @@
 // @flow
 
+export const ARROW_SIZE = 6;
+
+export const POPOVER_MARGIN = 6;
+
 export const PLACEMENT = {
   auto: 'auto',
   topLeft: 'topLeft',
@@ -14,12 +18,6 @@ export const PLACEMENT = {
   leftBottom: 'leftBottom',
   left: 'left',
   leftTop: 'leftTop',
-};
-
-export const ARROW_PLACEMENT = {
-  start: 'start',
-  center: 'center',
-  end: 'end',
 };
 
 export const TRIGGER_TYPE = {

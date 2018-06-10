@@ -1,16 +1,9 @@
 // @flow
 /* eslint-disable flowtype/generic-spacing */
 import * as React from 'react';
-import {
-  ARROW_PLACEMENT,
-  PLACEMENT,
-  STATE_CHANGE_TYPE,
-  TRIGGER_TYPE,
-} from './constants';
+import {PLACEMENT, STATE_CHANGE_TYPE, TRIGGER_TYPE} from './constants';
 
 export type PopoverPlacement = $Keys<typeof PLACEMENT>;
-
-export type ArrowPlacement = $Keys<typeof ARROW_PLACEMENT>;
 
 export type TriggerType = $Keys<typeof TRIGGER_TYPE>;
 
@@ -33,12 +26,12 @@ export type ContentRenderProp = ({
 
 export type ComponentsProp = {|
   PopoverBody?: React.ComponentType<any>,
-  Arrow?: React.ComponentType<any>,
+  PopoverArrow?: React.ComponentType<any>,
+  PopoverInner?: React.ComponentType<any>,
 |};
 
 // Props shared by all flavors of popover
 export type BasePopoverProps = {
-  arrowPlacement?: ArrowPlacement,
   components?: ComponentsProp,
   content: React.Node | ContentRenderProp,
   onMouseEnterDelay?: number,
@@ -85,17 +78,25 @@ export type PopperDataOffset = {
   height?: number | string,
 };
 
+export type PopperPositionStyle = {
+  top?: number | string,
+  left?: number | string,
+};
+
 export type PopperData = {
-  offsets?: {
-    popper?: PopperDataOffset,
-    reference?: PopperDataOffset,
-    arrow?: PopperDataOffset,
+  arrowStyles?: {
+    top: string,
+    left: string,
   },
-  styles?: {},
+  styles?: {
+    top: string,
+    left: string,
+  },
   placement: PopoverPlacement,
 };
 
 export type PopoverPrivateState = {
+  isAnimating: boolean,
   popperData: PopperData,
 };
 

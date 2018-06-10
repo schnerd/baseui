@@ -2,14 +2,13 @@
 import * as React from 'react';
 import type {PopoverProps, StatefulPopoverContainerProps, State} from './types';
 
-import {ARROW_PLACEMENT, PLACEMENT, TRIGGER_TYPE} from './constants';
+import {PLACEMENT, TRIGGER_TYPE} from './constants';
 
 class StatefulContainer extends React.Component<
   StatefulPopoverContainerProps,
   State
 > {
   static defaultProps = {
-    arrowPlacement: ARROW_PLACEMENT.center,
     dismissOnClickOutside: true,
     dismissOnEsc: true,
     placement: PLACEMENT.auto,
@@ -63,7 +62,6 @@ class StatefulContainer extends React.Component<
 
   render() {
     const {
-      arrowPlacement,
       dismissOnClickOutside,
       dismissOnEsc,
       components,
@@ -76,7 +74,6 @@ class StatefulContainer extends React.Component<
     } = this.props;
 
     const popoverProps: $Diff<PopoverProps, {children: React.Node}> = {
-      arrowPlacement,
       isOpen: this.state.isOpen,
       components,
       content,

@@ -1,54 +1,100 @@
 // @flow
-/* eslint-disable import/prefer-default-export */
 import {styled} from '../styles';
-import {capitalize, getOppositePosition} from './utils';
-
-const ARROWLESS_POPOVER_MARGIN = '6px';
+import {ARROW_SIZE} from './constants';
+import {getTransformOrigin, getPopoverMarginStyles} from './utils';
 
 /**
- * Returns margin styles to add spacing between the popover
- * and its anchor.
+ * Since we use a 45-degree rotated div to render the arrow, the
+ * width/height of this div is different than the arrow size itself
  *
- * We may want to make the margin a prop that can be overridden.
+ * The arrow size is essentially half the diagonal of the rotated div,
+ * using pythagorean theorem:
+ *   width^2 + height^2 = (arrow_size * 2)^2
+ * In this case width = height so:
+ *   2 * width^2 = (arrow_size * 2)^2
+ * Simplifies to:
+ *   width = √((arrow_size * 2)^2 / 2)
  */
-function getMargin({$showArrow, $placement}) {
-  // No extra margin if we have an arrow too
-  if ($showArrow) {
-    return null;
-  }
-  const position = $placement.match(/^[a-z]+/)[0];
-  const opposite = getOppositePosition(position);
-  if (!opposite) {
-    return null;
-  }
-  const property = `margin${capitalize(opposite)}`;
-  return {
-    [property]: ARROWLESS_POPOVER_MARGIN,
-  };
-}
+const ARROW_WIDTH = Math.floor(Math.sqrt((ARROW_SIZE * 2) ** 2 / 2));
+
+const BORDER_RADIUS = '4px';
+
+const ANIMATION_START_KEYFRAME = {
+  opacity: 0,
+  transform: 'scale(0.8)',
+};
+
+const ANIMATION_END_KEYFRAME = {
+  opacity: 1,
+  transform: 'scale(1)',
+};
 
 /**
- * Main popover element that displays the popover content
- * and gets positioned next to the anchor.
+ * Main popover container element that gets positioned next to the anchor
  */
 export const PopoverBody = styled('div', props => {
-  const {$positionStyles, theme} = props;
+  const {
+    $isOpen,
+    $isAnimating,
+    $placement,
+    $positionStyles,
+    $showArrow,
+    theme,
+  } = props;
 
-  const styles = {
+  return {
     position: 'absolute',
-    zIndex: 90000,
-    top: 0,
-    left: 0,
+    zIndex: 1050,
     backgroundColor: theme.colors.background,
     border: '1px solid hsl(0, 0%, 90%)',
-    borderRadius: '4px',
+    borderRadius: BORDER_RADIUS,
     boxShadow: theme.lighting.shadow600,
-    ...getMargin(props),
+
+    // Animation-related styles
+    transformOrigin: getTransformOrigin($placement),
+    animationDuration: '0.2s',
+    animationFillMode: 'both',
+    animationPlayState: $isAnimating ? 'running' : 'paused',
+    animationTimingFunction: 'cubic-bezier(0.08, 0.82, 0.17, 1)',
+    animationName: {
+      from: $isOpen ? ANIMATION_START_KEYFRAME : ANIMATION_END_KEYFRAME,
+      to: $isOpen ? ANIMATION_END_KEYFRAME : ANIMATION_START_KEYFRAME,
+    },
+
+    ...getPopoverMarginStyles($showArrow, $placement),
     ...$positionStyles,
   };
-
-  return styles;
 });
+
+/**
+ * Arrow shown between the popover and the anchor element
+ */
+export const PopoverArrow = styled('div', props => {
+  return {
+    backgroundColor: props.theme.colors.background,
+    boxShadow: props.theme.lighting.shadow600,
+    border: '1px solid hsl(0, 0%, 90%)',
+    width: `${ARROW_WIDTH}px`,
+    height: `${ARROW_WIDTH}px`,
+    transform: 'rotate(45deg)',
+    position: 'absolute',
+    zIndex: 1, // Below inner
+    ...props.$arrowStyles,
+  };
+});
+
+/**
+ * Extra div that holds the popover content. This extra element
+ * is needed for the arrow–the arrow is just a 45deg rotated div,
+ * end rendering this extra element on top with a sold background
+ * clips the part of the arrow that extends into the popover.
+ */
+export const PopoverInner = styled('div', ({theme}) => ({
+  backgroundColor: theme.colors.background,
+  borderRadius: BORDER_RADIUS,
+  position: 'relative',
+  zIndex: 2, // Above arrow
+}));
 
 /**
  * A drop-in component that provides the recommended padding

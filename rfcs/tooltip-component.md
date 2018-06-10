@@ -13,8 +13,9 @@ Accordingly, the RFC below will direct you to refer back to `popover-component.m
 * `StatefulTooltip`
 * `Tooltip`
 * `StatefulContainer`
-* `StyledTooltip`
-* `StyledArrow`
+* `StyledTooltipArrow`
+* `StyledTooltipBody`
+* `StyledTooltipInner`
 
 ### `StatefulTooltip` API
 

@@ -5,26 +5,29 @@ import ReactDOM from 'react-dom';
 import {document} from 'global';
 import Popper from 'popper.js';
 import isBrowser from '../utils/is-browser';
-import type {
-  AnchorProps,
-  PopoverProps,
-  PopoverPrivateState,
-  PopperData,
-} from './types';
-import {ARROW_PLACEMENT, PLACEMENT, TRIGGER_TYPE} from './constants';
-import {PopoverBody as StyledPopoverBody} from './styled-components';
-import {toPopperPlacement, fromPopperPlacement} from './utils';
+import type {AnchorProps, PopoverProps, PopoverPrivateState} from './types';
+import {PLACEMENT, TRIGGER_TYPE} from './constants';
+import {
+  PopoverArrow as StyledPopoverArrow,
+  PopoverBody as StyledPopoverBody,
+  PopoverInner as StyledPopoverInner,
+} from './styled-components';
+import {
+  toPopperPlacement,
+  fromPopperPlacement,
+  prepareArrowPositionStyles,
+  preparePopoverPositionStyles,
+} from './utils';
 
 class Popover extends React.Component<PopoverProps, PopoverPrivateState> {
   static defaultProps = {
-    arrowPlacement: ARROW_PLACEMENT.center,
     components: {},
     onClick: null,
     onClickOutside: null,
     onMouseEnter: null,
     onMouseEnterDelay: null,
     onMouseLeave: null,
-    onMouseLeaveDelay: null,
+    onMouseLeaveDelay: 200,
     onEsc: null,
     placement: PLACEMENT.auto,
     showArrow: false,
@@ -45,7 +48,7 @@ class Popover extends React.Component<PopoverProps, PopoverPrivateState> {
     /**
      * Yes our "Stateless" popover still has state. This is private state that
      * customers shouldn't have to manage themselves, such as positioning and
-     * potentially other internal flags for managing animation states.
+     * other internal flags for managing animation states.
      */
     this.state = this.getDefaultState(props);
   }
@@ -66,6 +69,7 @@ class Popover extends React.Component<PopoverProps, PopoverPrivateState> {
         // Closing
         this.destroyPopover();
         this.removeDomEvents();
+        setTimeout(this.animateOut, 20);
       }
     }
   }
@@ -80,6 +84,21 @@ class Popover extends React.Component<PopoverProps, PopoverPrivateState> {
       clearTimeout(this.onMouseEnterTimer);
     }
   }
+
+  animateIn = () => {
+    if (this.props.isOpen) {
+      this.setState({isAnimating: true});
+    }
+  };
+
+  animateOut = () => {
+    if (!this.props.isOpen) {
+      this.setState({isAnimating: true});
+      setTimeout(() => {
+        this.setState({isAnimating: false});
+      }, 500);
+    }
+  };
 
   initializePopper() {
     const {popperData: {placement}} = this.state;
@@ -96,8 +115,15 @@ class Popover extends React.Component<PopoverProps, PopoverPrivateState> {
               : undefined,
             enabled: this.props.showArrow,
           },
-          // Disable default styling modifier, and use our custom react one instead
-          applyStyle: {enabled: false},
+          computeStyle: {
+            // Make popper use top/left instead of transform translate, this is because
+            // we use transform for animations and we dont want them to conflict
+            gpuAcceleration: false,
+          },
+          applyStyle: {
+            // Disable default styling modifier, we'll apply styles on our own
+            enabled: false,
+          },
           applyReactStyle: {
             enabled: true,
             fn: this.onPopperUpdate,
@@ -144,22 +170,29 @@ class Popover extends React.Component<PopoverProps, PopoverPrivateState> {
     }
   };
 
-  onPopperUpdate = (data: PopperData) => {
+  onPopperUpdate = (data: any) => {
+    const placement = fromPopperPlacement(data.placement);
     this.setState({
       popperData: {
-        ...data,
-        placement: fromPopperPlacement(data.placement),
+        arrowStyles: prepareArrowPositionStyles(data.arrowStyles, placement),
+        styles: preparePopoverPositionStyles(data.styles),
+        placement,
       },
     });
+
+    // Now that element has been positioned, we can animate it in
+    setTimeout(this.animateIn, 20);
+
     return data;
   };
 
   getDefaultState(props: PopoverProps) {
     return {
+      isAnimating: false,
       popperData: {
-        offsets: {},
         placement: props.placement,
-        styles: {},
+        arrowStyles: {left: '0px', top: '0px'},
+        styles: {left: '0px', top: '0px'},
       },
     };
   }
@@ -237,7 +270,7 @@ class Popover extends React.Component<PopoverProps, PopoverPrivateState> {
       this.popper.destroy();
       delete this.popper;
     }
-    if (this.props.triggerType === TRIGGER_TYPE.click) {
+    if (this.isClickTrigger()) {
       this.removeDomEvents();
     }
   }
@@ -252,6 +285,7 @@ class Popover extends React.Component<PopoverProps, PopoverPrivateState> {
 
   getAnchorProps() {
     const anchorProps: AnchorProps = {
+      key: 'popover-anchor',
       // Always attach onClick–it's still useful to toggle via click
       // even if the anchor is hoverable
       onClick: this.onAnchorClick,
@@ -281,9 +315,16 @@ class Popover extends React.Component<PopoverProps, PopoverPrivateState> {
   }
 
   renderPopover() {
-    const {showArrow, components = {}, content} = this.props;
-    const {popperData: {styles, placement}} = this.state;
-    const {PopoverBody = StyledPopoverBody} = components;
+    const {isOpen, showArrow, components = {}, content} = this.props;
+    const {
+      isAnimating,
+      popperData: {arrowStyles, styles, placement},
+    } = this.state;
+    const {
+      PopoverArrow = StyledPopoverArrow,
+      PopoverBody = StyledPopoverBody,
+      PopoverInner = StyledPopoverInner,
+    } = components;
 
     const interactionProps = {};
     if (this.isHoverTrigger()) {
@@ -291,24 +332,43 @@ class Popover extends React.Component<PopoverProps, PopoverPrivateState> {
       interactionProps.onMouseLeave = this.onPopoverMouseLeave;
     }
 
+    const sharedProps = {
+      $showArrow: showArrow,
+      $arrowStyles: arrowStyles,
+      $positionStyles: styles,
+      $placement: placement,
+      $isAnimating: isAnimating,
+      $isOpen: isOpen,
+    };
+
     return (
       <PopoverBody
-        $showArrow={showArrow}
-        $positionStyles={styles}
-        $placement={placement}
+        key="popover-body"
         $ref={el => {
           this.popperRef = el;
         }}
+        {...sharedProps}
         {...interactionProps}
       >
-        {typeof content === 'function' ? content({}) : content}
+        {showArrow ? (
+          <PopoverArrow
+            key="popover-arrow"
+            $ref={el => {
+              this.arrowRef = el;
+            }}
+            {...sharedProps}
+          />
+        ) : null}
+        <PopoverInner key="popover-inner">
+          {typeof content === 'function' ? content({}) : content}
+        </PopoverInner>
       </PopoverBody>
     );
   }
 
   render() {
     const rendered = [this.renderAnchor()];
-    if (this.props.isOpen) {
+    if (this.props.isOpen || this.state.isAnimating) {
       rendered.push(ReactDOM.createPortal(this.renderPopover(), document.body));
     }
     return rendered;

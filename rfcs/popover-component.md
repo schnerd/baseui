@@ -5,8 +5,10 @@
 * `StatefulPopover`
 * `Popover`
 * `StatefulContainer`
-* `StyledPopover`
-* `StyledArrow`
+* `StyledPopoverArrow`
+* `StyledPopoverBody`
+* `StyledPopoverInner`
+* `StyledPopoverPadding`
 
 ### `StatefulContainer` API
 
@@ -24,16 +26,14 @@
   event handler when popover is hidden
 * `placement: 'auto' | 'topLeft' | 'top' | 'topRight' | 'rightTop' | 'right' | 'rightBottom' | 'bottomRight' | 'bottom' | 'bottomLeft' | 'leftTop' | 'left' | 'leftBottom'`:
   How to position the popover relative to the target. Defaults to 'auto'.
-* `arrowPlacement: 'start' | 'center' | 'end'`:
-  How to align the arrow on the target element. Defaults to 'center'.
 * `content: node | func`:
   Content to render within the popover when it's shown. Required.
 * `children: node`:
   Content that should trigger the popover to be shown (also acts as the anchor against which the popover will be positioned)
 * `onMouseEnterDelay: number`:
-  Number of milliseconds to wait before showing the popover after mousing enters the trigger elment. Defaults to 0.
+  Number of milliseconds to wait before showing the popover after mousing enters the trigger elment (for triggerType `hover`). Defaults to 0.
 * `onMouseLeaveDelay: number`:
-  Number of milliseconds to wait before hiding the popover after the mouse leaves the trigger element. Defaults to 0.
+  Number of milliseconds to wait before hiding the popover after the mouse leaves the trigger element (for triggerType `hover`). Defaults to 200.
 * `showArrow: boolean`:
   Whether or not to show the arrow pointing from the popover to the trigger. Defaults to false.
 * `dismissOnClickOutside: boolean`:
@@ -49,8 +49,6 @@
   Whether or not to show the popover
 * `placement: 'auto' | 'topLeft' | 'top' | 'topRight' | 'rightTop' | 'right' | 'rightBottom' | 'bottomRight' | 'bottom' | 'bottomLeft' | 'leftTop' | 'left' | 'leftBottom'`:
   How to position the popover relative to the target. Defaults to 'auto'.
-* `arrowPlacement: 'start' | 'center' | 'end'`:
-  How to align the arrow on the target element. Defaults to 'center'.
 * `content: node | func`:
   Content to render within the popover when it's shown. Required.
 * `children: node`:
@@ -72,12 +70,37 @@
 
 ##### `PopoverBody`
 
-* `$positionStyles`: Positions the popover body, usually a `transform` style (these styles come from popper.js library)
-* `$showArrow`: Whether or not an arrow is shown on the popover pointing to the anchor
+Main popover container component that gets positioned next to the anchor:
+
+* `$isOpen`: Propagated from the parent
+* `$iAnimating`: `true` if the popover should currently be animating in or out.
+* `$positionStyles`: Popover positioning css rules
+* `$arrowStyles`: Popover arrow positioning css rules
+* `$showArrow`: Propagated from the parent
 * `$placement`: Runtime placement (may differ from placement prop if popover would have overflowed viewport)
 * `$ref`: React ref for the popover element (should be passed down to dom element)
+* `onMouseEnter`: Callback used for triggerType = 'hover' to prevent popover from hiding when mouse leaves anchor
+* `onMouseLeave`: Callback used for triggerType = 'hover' to hide popover
+
+##### `PopoverArrow`
+
+* `$isOpen`: Propagated from the parent
+* `$iAnimating`: `true` if the popover should currently be animating in or out.
+* `$positionStyles`: Popover positioning css rules
+* `$arrowStyles`: Popover arrow positioning css rules
+* `$showArrow`: Propagated from the parent
+* `$placement`: Runtime placement (may differ from placement prop if popover would have overflowed viewport)
+* `$ref`: React ref for the arrow element (should be passed down to dom element)
+
+##### `PopoverInner`
+
+Element that holds all the content.
+
+No props
 
 ##### `PopoverPadding`
+
+Not used internally, just a helper customers can wrap their content in to add some default padding.
 
 No props
 

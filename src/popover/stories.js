@@ -6,6 +6,7 @@ import {storiesOf} from '@storybook/react';
 import {styled} from '../styles';
 import {
   PLACEMENT,
+  TRIGGER_TYPE,
   Popover,
   StatefulPopover,
   StyledPopoverPadding,
@@ -57,11 +58,7 @@ storiesOf('Popover', module)
     </StatefulPopover>
   ))
   .add('stateful popover (hover)', () => (
-    <StatefulPopover
-      triggerType="hover"
-      content={popoverContent}
-      onMouseLeaveDelay={200}
-    >
+    <StatefulPopover triggerType={TRIGGER_TYPE.hover} content={popoverContent}>
       <Button>Hover Me</Button>
     </StatefulPopover>
   ))
@@ -187,4 +184,13 @@ storiesOf('Popover', module)
         </Grid>
       </Container>
     );
-  });
+  })
+  .add('popover w/ arrow', () => (
+    <StatefulPopover
+      content={popoverContent}
+      showArrow
+      triggerType={TRIGGER_TYPE.hover}
+    >
+      <Button>Hover Me</Button>
+    </StatefulPopover>
+  ));
