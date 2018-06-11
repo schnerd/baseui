@@ -65,6 +65,21 @@ storiesOf('Popover', module)
       <Button>Hover Me</Button>
     </Popover>
   ))
+  .add('stateful popover w/ override', () => (
+    <Popover
+      triggerType="hover"
+      content={popoverContent}
+      onMouseLeaveDelay={200}
+      components={{
+        PopoverBody: {
+          style: {border: '1px solid #ff0000'},
+          props: {title: 'hello!'},
+        },
+      }}
+    >
+      <Button>Hover Me</Button>
+    </Popover>
+  ))
   .add('popover placements', () => {
     const Container = styled('div', {
       position: 'relative',

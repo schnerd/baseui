@@ -12,13 +12,11 @@ import type {
   PopperData,
 } from './types';
 import {ARROW_PLACEMENT, PLACEMENT, TRIGGER_TYPE} from './constants';
-import {PopoverBody as StyledPopoverBody} from './styled-components';
 import {toPopperPlacement, fromPopperPlacement} from './utils';
 
 class Popover extends React.Component<PopoverProps, PopoverPrivateState> {
   static defaultProps = {
     arrowPlacement: ARROW_PLACEMENT.center,
-    components: {},
     onClick: null,
     onClickOutside: null,
     onMouseEnter: null,
@@ -281,9 +279,8 @@ class Popover extends React.Component<PopoverProps, PopoverPrivateState> {
   }
 
   renderPopover() {
-    const {showArrow, components = {}, content} = this.props;
+    const {showArrow, components: {PopoverBody}, content} = this.props;
     const {popperData: {styles, placement}} = this.state;
-    const {PopoverBody = StyledPopoverBody} = components;
 
     const interactionProps = {};
     if (this.isHoverTrigger()) {

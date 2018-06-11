@@ -32,14 +32,14 @@ export type ContentRenderProp = ({
 }) => React.Node;
 
 export type ComponentsProp = {|
-  PopoverBody?: React.ComponentType<any>,
-  Arrow?: React.ComponentType<any>,
+  PopoverBody: React.ComponentType<any>,
+  Arrow: React.ComponentType<any>,
 |};
 
 // Props shared by all flavors of popover
 export type BasePopoverProps = {
   arrowPlacement?: ArrowPlacement,
-  components?: ComponentsProp,
+  components: ComponentsProp,
   content: React.Node | ContentRenderProp,
   onMouseEnterDelay?: number,
   onMouseLeaveDelay?: number,
