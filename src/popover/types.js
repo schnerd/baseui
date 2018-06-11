@@ -1,6 +1,7 @@
 // @flow
 /* eslint-disable flowtype/generic-spacing */
 import * as React from 'react';
+import type {ComponentOverride} from '../types';
 import {
   ARROW_PLACEMENT,
   PLACEMENT,
@@ -32,8 +33,8 @@ export type ContentRenderProp = ({
 }) => React.Node;
 
 export type ComponentsProp = {|
-  PopoverBody?: React.ComponentType<any>,
-  Arrow?: React.ComponentType<any>,
+  PopoverBody?: ComponentOverride,
+  Arrow?: ComponentOverride,
 |};
 
 // Props shared by all flavors of popover
