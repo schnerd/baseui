@@ -7,7 +7,7 @@ import {styled} from '../styles';
 import {
   PLACEMENT,
   Popover,
-  StatelessPopover,
+  StatefulPopover,
   StyledPopoverPadding,
 } from './index';
 
@@ -47,23 +47,23 @@ const Button = styled('button', ({theme}) => ({
 
 storiesOf('Popover', module)
   .add('stateless popover', () => (
-    <StatelessPopover isOpen content={popoverContent}>
+    <Popover isOpen content={popoverContent}>
       <Button>Open</Button>
-    </StatelessPopover>
-  ))
-  .add('stateful popover (click)', () => (
-    <Popover content={popoverContent}>
-      <Button>Press Me</Button>
     </Popover>
   ))
+  .add('stateful popover (click)', () => (
+    <StatefulPopover content={popoverContent}>
+      <Button>Press Me</Button>
+    </StatefulPopover>
+  ))
   .add('stateful popover (hover)', () => (
-    <Popover
+    <StatefulPopover
       triggerType="hover"
       content={popoverContent}
       onMouseLeaveDelay={200}
     >
       <Button>Hover Me</Button>
-    </Popover>
+    </StatefulPopover>
   ))
   .add('popover placements', () => {
     const Container = styled('div', {
@@ -92,64 +92,97 @@ storiesOf('Popover', module)
       <Container>
         <Grid>
           <GridItem row={1} col={2}>
-            <Popover placement={PLACEMENT.topLeft} content={popoverContent}>
+            <StatefulPopover
+              placement={PLACEMENT.topLeft}
+              content={popoverContent}
+            >
               <Button>TL</Button>
-            </Popover>
+            </StatefulPopover>
           </GridItem>
           <GridItem row={1} col={3}>
-            <Popover placement={PLACEMENT.top} content={popoverContent}>
+            <StatefulPopover placement={PLACEMENT.top} content={popoverContent}>
               <Button>Top</Button>
-            </Popover>
+            </StatefulPopover>
           </GridItem>
           <GridItem row={1} col={4}>
-            <Popover placement={PLACEMENT.topRight} content={popoverContent}>
+            <StatefulPopover
+              placement={PLACEMENT.topRight}
+              content={popoverContent}
+            >
               <Button>TR</Button>
-            </Popover>
+            </StatefulPopover>
           </GridItem>
           <GridItem row={2} col={1}>
-            <Popover placement={PLACEMENT.leftTop} content={popoverContent}>
+            <StatefulPopover
+              placement={PLACEMENT.leftTop}
+              content={popoverContent}
+            >
               <Button>LT</Button>
-            </Popover>
+            </StatefulPopover>
           </GridItem>
           <GridItem row={3} col={1}>
-            <Popover placement={PLACEMENT.left} content={popoverContent}>
+            <StatefulPopover
+              placement={PLACEMENT.left}
+              content={popoverContent}
+            >
               <Button>Left</Button>
-            </Popover>
+            </StatefulPopover>
           </GridItem>
           <GridItem row={4} col={1}>
-            <Popover placement={PLACEMENT.leftBottom} content={popoverContent}>
+            <StatefulPopover
+              placement={PLACEMENT.leftBottom}
+              content={popoverContent}
+            >
               <Button>LB</Button>
-            </Popover>
+            </StatefulPopover>
           </GridItem>
           <GridItem row={5} col={2}>
-            <Popover placement={PLACEMENT.bottomLeft} content={popoverContent}>
+            <StatefulPopover
+              placement={PLACEMENT.bottomLeft}
+              content={popoverContent}
+            >
               <Button>BL</Button>
-            </Popover>
+            </StatefulPopover>
           </GridItem>
           <GridItem row={5} col={3}>
-            <Popover placement={PLACEMENT.bottom} content={popoverContent}>
+            <StatefulPopover
+              placement={PLACEMENT.bottom}
+              content={popoverContent}
+            >
               <Button>Bottom</Button>
-            </Popover>
+            </StatefulPopover>
           </GridItem>
           <GridItem row={5} col={4}>
-            <Popover placement={PLACEMENT.bottomRight} content={popoverContent}>
+            <StatefulPopover
+              placement={PLACEMENT.bottomRight}
+              content={popoverContent}
+            >
               <Button>BR</Button>
-            </Popover>
+            </StatefulPopover>
           </GridItem>
           <GridItem row={2} col={5}>
-            <Popover placement={PLACEMENT.rightTop} content={popoverContent}>
+            <StatefulPopover
+              placement={PLACEMENT.rightTop}
+              content={popoverContent}
+            >
               <Button>RT</Button>
-            </Popover>
+            </StatefulPopover>
           </GridItem>
           <GridItem row={3} col={5}>
-            <Popover placement={PLACEMENT.right} content={popoverContent}>
+            <StatefulPopover
+              placement={PLACEMENT.right}
+              content={popoverContent}
+            >
               <Button>Right</Button>
-            </Popover>
+            </StatefulPopover>
           </GridItem>
           <GridItem row={4} col={5}>
-            <Popover placement={PLACEMENT.rightBottom} content={popoverContent}>
+            <StatefulPopover
+              placement={PLACEMENT.rightBottom}
+              content={popoverContent}
+            >
               <Button>RB</Button>
-            </Popover>
+            </StatefulPopover>
           </GridItem>
         </Grid>
       </Container>
