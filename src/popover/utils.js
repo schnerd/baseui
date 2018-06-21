@@ -1,6 +1,6 @@
 // @flow
 /* eslint-disable import/prefer-default-export */
-import type {PopoverPlacement, PopperPositionStyle} from './types';
+import type {PopoverPlacement, PositionStyles} from './types';
 import {ARROW_SIZE, POPOVER_MARGIN} from './constants';
 
 const OPPOSITE_POSITIONS = {
@@ -45,6 +45,7 @@ export function toPopperPlacement(placement: PopoverPlacement): string {
  * to our placement prop
  */
 export function fromPopperPlacement(placement: string): PopoverPlacement {
+  // eslint-disable-next-line flowtype/no-weak-types
   let popoverPlacement: any = placement
     .replace(/(top|bottom)-start$/, '$1Left')
     .replace(/(top|bottom)-end$/, '$1Right')
@@ -70,9 +71,7 @@ export function splitPlacement(placement: PopoverPlacement) {
  * information, but top/left don't have units. This helper function
  * creates a new style object with units.
  */
-export function preparePopoverPositionStyles(
-  styles?: PopperPositionStyle = {}
-) {
+export function preparePopoverPositionStyles(styles?: PositionStyles = {}) {
   const {left, top, ...restStyles} = styles;
   return {
     ...restStyles,
@@ -89,8 +88,8 @@ export function preparePopoverPositionStyles(
  * popover, so we add that ourselves based on the placement.
  */
 export function prepareArrowPositionStyles(
-  popperArrowStyles?: PopperPositionStyle,
-  placement: PopoverPlacement
+  popperArrowStyles?: PositionStyles,
+  placement: PopoverPlacement,
 ) {
   if (!popperArrowStyles) {
     return {left: '0px', top: '0px'};
@@ -135,7 +134,7 @@ export function getTransformOrigin(placement: PopoverPlacement) {
  */
 export function getPopoverMarginStyles(
   showArrow: boolean,
-  placement: PopoverPlacement
+  placement: PopoverPlacement,
 ) {
   const [position] = splitPlacement(placement);
   const opposite = getOppositePosition(position);

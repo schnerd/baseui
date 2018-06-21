@@ -17,7 +17,7 @@ export type StateReducer = (
   stateChangeType: StateChangeType,
   nextState: State,
   currentState: State,
-  event?: Event
+  event?: Event,
 ) => State;
 
 export type ContentRenderProp = ({
@@ -25,10 +25,22 @@ export type ContentRenderProp = ({
 }) => React.Node;
 
 export type ComponentsProp = {|
-  PopoverBody?: React.ComponentType<any>,
-  PopoverArrow?: React.ComponentType<any>,
-  PopoverInner?: React.ComponentType<any>,
+  PopoverBody?: React.ComponentType<mixed>,
+  PopoverArrow?: React.ComponentType<mixed>,
+  PopoverInner?: React.ComponentType<mixed>,
 |};
+
+// Basically React.Node minus React.Portal and Iterable
+export type ChildType =
+  | void
+  | null
+  | boolean
+  | number
+  | string
+  // eslint-disable-next-line flowtype/no-weak-types
+  | React.Element<any>;
+
+export type ChildrenType = React.ChildrenArray<ChildType>;
 
 // Props shared by all flavors of popover
 export type BasePopoverProps = {
@@ -43,7 +55,7 @@ export type BasePopoverProps = {
 
 // Props for stateless render logic
 export type PopoverProps = BasePopoverProps & {
-  children: React.Node,
+  children: ChildrenType,
   isOpen: boolean,
   onClick?: (e: Event) => void,
   onClickOutside?: () => void,
@@ -54,7 +66,7 @@ export type PopoverProps = BasePopoverProps & {
 
 // Props for stateful wrapper
 export type StatefulPopoverProps = BasePopoverProps & {
-  children: React.Node,
+  children: ChildrenType,
   dismissOnClickOutside: boolean,
   dismissOnEsc: boolean,
   initialState?: State,
@@ -66,42 +78,44 @@ export type StatefulPopoverProps = BasePopoverProps & {
 // Props for state container
 export type StatefulPopoverContainerProps = $Diff<
   StatefulPopoverProps,
-  {children: React.Node}
+  {children: ChildrenType},
 > & {
-  children: (props: $Diff<PopoverProps, {children: React.Node}>) => React.Node,
+  children: (
+    props: $Diff<PopoverProps, {children: ChildrenType}>,
+  ) => React.Node,
 };
 
-export type PopperDataOffset = {
-  top?: number | string,
-  left?: number | string,
-  width?: number | string,
-  height?: number | string,
-};
-
-export type PopperPositionStyle = {
+export type PositionStyles = {
   top?: number | string,
   left?: number | string,
 };
 
-export type PopperData = {
+export type PopperDataObject = {
   arrowStyles?: {
-    top: string,
-    left: string,
+    top?: number | string,
+    left?: number | string,
   },
   styles?: {
-    top: string,
-    left: string,
+    top?: number | string,
+    left?: number | string,
   },
-  placement: PopoverPlacement,
+  placement: string,
 };
 
 export type PopoverPrivateState = {
   isAnimating: boolean,
-  popperData: PopperData,
+  arrowStyles: PositionStyles,
+  positionStyles: PositionStyles,
+  placement: PopoverPlacement,
 };
 
 export type AnchorProps = {
   onMouseEnter?: (e: Event) => void,
   onMouseLeave?: (e: Event) => void,
   onClick?: (e: Event) => void,
+  /* eslint-disable flowtype/no-weak-types */
+  // TODO: Get this to work without 'any'
+  ref?: React.Ref<any>,
+  $ref?: React.Ref<any>,
+  /* eslint-enable flowtype/no-weak-types */
 };

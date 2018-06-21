@@ -6,7 +6,7 @@ import {PLACEMENT, TRIGGER_TYPE} from './constants';
 
 class StatefulContainer extends React.Component<
   StatefulPopoverContainerProps,
-  State
+  State,
 > {
   static defaultProps = {
     dismissOnClickOutside: true,
@@ -16,13 +16,10 @@ class StatefulContainer extends React.Component<
     triggerType: TRIGGER_TYPE.click,
   };
 
-  constructor(props: StatefulPopoverContainerProps) {
-    super(props);
-    this.state = {
-      isOpen: false,
-      ...props.initialState,
-    };
-  }
+  state = {
+    isOpen: false,
+    ...this.props.initialState,
+  };
 
   onClick = () => {
     if (this.state.isOpen) {

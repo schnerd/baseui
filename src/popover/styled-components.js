@@ -39,16 +39,16 @@ export const PopoverBody = styled('div', props => {
     $placement,
     $positionStyles,
     $showArrow,
-    theme,
+    $theme,
   } = props;
 
   return {
     position: 'absolute',
     zIndex: 1050,
-    backgroundColor: theme.colors.background,
+    backgroundColor: $theme.colors.background,
     border: '1px solid hsl(0, 0%, 90%)',
     borderRadius: BORDER_RADIUS,
-    boxShadow: theme.lighting.shadow600,
+    boxShadow: $theme.lighting.shadow600,
 
     // Animation-related styles
     transformOrigin: getTransformOrigin($placement),
@@ -71,8 +71,8 @@ export const PopoverBody = styled('div', props => {
  */
 export const PopoverArrow = styled('div', props => {
   return {
-    backgroundColor: props.theme.colors.background,
-    boxShadow: props.theme.lighting.shadow600,
+    backgroundColor: props.$theme.colors.background,
+    boxShadow: props.$theme.lighting.shadow600,
     border: '1px solid hsl(0, 0%, 90%)',
     width: `${ARROW_WIDTH}px`,
     height: `${ARROW_WIDTH}px`,
@@ -89,8 +89,8 @@ export const PopoverArrow = styled('div', props => {
  * end rendering this extra element on top with a sold background
  * clips the part of the arrow that extends into the popover.
  */
-export const PopoverInner = styled('div', ({theme}) => ({
-  backgroundColor: theme.colors.background,
+export const PopoverInner = styled('div', ({$theme}) => ({
+  backgroundColor: $theme.colors.background,
   borderRadius: BORDER_RADIUS,
   position: 'relative',
   zIndex: 2, // Above arrow

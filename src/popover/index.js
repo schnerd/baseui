@@ -1,3 +1,4 @@
+// @flow
 export {default as StatefulPopover} from './stateful-popover';
 export {default as StatefulContainer} from './stateful-container';
 export {default as Popover} from './popover';

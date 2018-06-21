@@ -1,7 +1,7 @@
+// @flow
 import React from 'react';
 
 import {storiesOf} from '@storybook/react';
-// import {action} from '@storybook/addon-actions';
 
 import {styled} from '../styles';
 import {
@@ -24,10 +24,10 @@ function popoverContent() {
 }
 
 // TODO replace with real button when its available
-const Button = styled('button', ({theme}) => ({
-  padding: `${theme.sizing.scale200} ${theme.sizing.scale400}`,
+const Button = styled('button', ({$theme}) => ({
+  padding: `${$theme.sizing.scale200} ${$theme.sizing.scale400}`,
   fontWeight: 'bold',
-  backgroundColor: theme.colors.buttonPrimaryFill,
+  backgroundColor: $theme.colors.buttonPrimaryFill,
   borderRadius: '3px',
   border: 'none',
   color: '#fff',
@@ -36,13 +36,13 @@ const Button = styled('button', ({theme}) => ({
   transitionDuration: '0.2s',
   fontSize: '14px',
   ':hover': {
-    backgroundColor: theme.colors.buttonPrimaryHover,
+    backgroundColor: $theme.colors.buttonPrimaryHover,
   },
   ':focus': {
-    backgroundColor: theme.colors.buttonPrimaryHover,
+    backgroundColor: $theme.colors.buttonPrimaryHover,
   },
   ':active': {
-    backgroundColor: theme.colors.buttonPrimaryActive,
+    backgroundColor: $theme.colors.buttonPrimaryActive,
   },
 }));
 

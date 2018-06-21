@@ -4,7 +4,7 @@ import StatefulContainer from './stateful-container';
 import Popover from './popover';
 import type {StatefulPopoverProps} from './types';
 
-export default function StatefulPopover(props: StatefulPopoverProps) {
+function StatefulPopover(props: StatefulPopoverProps) {
   const {children, ...restProps} = props;
   return (
     <StatefulContainer {...restProps}>
@@ -12,3 +12,7 @@ export default function StatefulPopover(props: StatefulPopoverProps) {
     </StatefulContainer>
   );
 }
+
+StatefulPopover.defaultProps = StatefulContainer.defaultProps;
+
+export default StatefulPopover;
