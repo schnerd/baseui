@@ -54,6 +54,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverPrivateState> {
   componentDidMount() {
     if (this.props.isOpen) {
       this.initializePopper();
+      this.addDomEvents();
     }
   }
 
@@ -370,7 +371,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverPrivateState> {
 
   render() {
     const rendered = [this.renderAnchor()];
-    if (this.props.isOpen || this.state.isAnimating) {
+    if (isBrowser && (this.props.isOpen || this.state.isAnimating)) {
       rendered.push(ReactDOM.createPortal(this.renderPopover(), document.body));
     }
     return rendered;

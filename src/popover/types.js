@@ -102,6 +102,18 @@ export type PopperDataObject = {
   placement: string,
 };
 
+export type PopperOptions = {
+  placement: string,
+  modifiers: {
+    arrow: {},
+    computeStyle: {},
+    applyStyle: {},
+    applyReactStyle: {
+      fn: (data: PopperDataObject) => void,
+    },
+  },
+};
+
 export type PopoverPrivateState = {
   isAnimating: boolean,
   arrowStyles: PositionStyles,
