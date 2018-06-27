@@ -26,7 +26,7 @@ import type {
   ChildType,
 } from './types';
 
-class Popover extends React.PureComponent<PopoverProps, PopoverPrivateState> {
+class Popover extends React.Component<PopoverProps, PopoverPrivateState> {
   static defaultProps = {
     components: {},
     onMouseLeaveDelay: 200,
@@ -36,9 +36,12 @@ class Popover extends React.PureComponent<PopoverProps, PopoverPrivateState> {
   };
 
   /* eslint-disable react/sort-comp */
-  popper: ?Popper;
+  animateInTimer: ?TimeoutID;
+  animateOutTimer: ?TimeoutID;
+  animateOutCompleteTimer: ?TimeoutID;
   onMouseEnterTimer: ?TimeoutID;
   onMouseLeaveTimer: ?TimeoutID;
+  popper: ?Popper;
   anchorRef = React.createRef();
   popperRef = React.createRef();
   arrowRef = React.createRef();
@@ -68,7 +71,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverPrivateState> {
         // Closing
         this.destroyPopover();
         this.removeDomEvents();
-        setTimeout(this.animateOut, 20);
+        this.animateOutTimer = setTimeout(this.animateOut, 20);
       }
     }
   }
@@ -76,12 +79,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverPrivateState> {
   componentWillUnmount() {
     this.destroyPopover();
     this.removeDomEvents();
-    if (this.onMouseLeaveTimer) {
-      clearTimeout(this.onMouseLeaveTimer);
-    }
-    if (this.onMouseEnterTimer) {
-      clearTimeout(this.onMouseEnterTimer);
-    }
+    this.clearTimers();
   }
 
   animateIn = () => {
@@ -93,7 +91,8 @@ class Popover extends React.PureComponent<PopoverProps, PopoverPrivateState> {
   animateOut = () => {
     if (!this.props.isOpen) {
       this.setState({isAnimating: true});
-      setTimeout(() => {
+      // Remove the popover from the DOM after animation finishes
+      this.animateOutCompleteTimer = setTimeout(() => {
         this.setState({isAnimating: false});
       }, 500);
     }
@@ -125,6 +124,20 @@ class Popover extends React.PureComponent<PopoverProps, PopoverPrivateState> {
           order: 900,
         },
       },
+    });
+  }
+
+  clearTimers() {
+    [
+      this.animateInTimer,
+      this.animateOutTimer,
+      this.animateOutCompleteTimer,
+      this.onMouseEnterTimer,
+      this.onMouseLeaveTimer,
+    ].forEach(timerId => {
+      if (timerId) {
+        clearTimeout(timerId);
+      }
     });
   }
 
@@ -165,7 +178,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverPrivateState> {
   };
 
   onPopperUpdate = (data: PopperDataObject) => {
-    const placement = fromPopperPlacement(data.placement);
+    const placement = fromPopperPlacement(data.placement) || PLACEMENT.top;
     this.setState({
       arrowStyles: prepareArrowPositionStyles(data.arrowStyles, placement),
       positionStyles: preparePopoverPositionStyles(data.styles),
@@ -173,7 +186,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverPrivateState> {
     });
 
     // Now that element has been positioned, we can animate it in
-    setTimeout(this.animateIn, 20);
+    this.animateInTimer = setTimeout(this.animateIn, 20);
 
     return data;
   };

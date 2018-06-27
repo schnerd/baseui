@@ -1,7 +1,7 @@
 // @flow
 /* eslint-disable import/prefer-default-export */
 import type {PopoverPlacement, PositionStyles} from './types';
-import {ARROW_SIZE, POPOVER_MARGIN} from './constants';
+import {ARROW_SIZE, POPOVER_MARGIN, PLACEMENT} from './constants';
 
 const OPPOSITE_POSITIONS = {
   top: 'bottom',
@@ -31,8 +31,8 @@ export function capitalize(str: string): string {
 /**
  * Converts our placement prop to a Popper.js placement
  * See docs: https://popper.js.org/popper-documentation.html
- * auto, top, right, bottom, left are the same
- * but things like 'rightTop' must be converted to 'right-start'
+ * auto, top, right, bottom, left are the same but things
+ * like 'rightTop' must be converted to 'right-start'
  */
 export function toPopperPlacement(placement: PopoverPlacement): string {
   return placement
@@ -44,15 +44,15 @@ export function toPopperPlacement(placement: PopoverPlacement): string {
  * Opposite of function above, converts from Popper.js placement
  * to our placement prop
  */
-export function fromPopperPlacement(placement: string): PopoverPlacement {
-  // eslint-disable-next-line flowtype/no-weak-types
-  let popoverPlacement: any = placement
+export function fromPopperPlacement(
+  placement: string,
+): PopoverPlacement | null {
+  const popoverPlacement: string = placement
     .replace(/(top|bottom)-start$/, '$1Left')
     .replace(/(top|bottom)-end$/, '$1Right')
     .replace(/(left|right)-start$/, '$1Top')
     .replace(/(left|right)-end$/, '$1Bottom');
-  (popoverPlacement: PopoverPlacement);
-  return popoverPlacement;
+  return PLACEMENT[popoverPlacement] || null;
 }
 
 /**
@@ -91,7 +91,7 @@ export function prepareArrowPositionStyles(
   popperArrowStyles?: PositionStyles,
   placement: PopoverPlacement,
 ) {
-  if (!popperArrowStyles) {
+  if (!popperArrowStyles || !placement) {
     return {left: '0px', top: '0px'};
   }
   const styles = {};

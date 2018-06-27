@@ -22,7 +22,7 @@ const mock = jest
               top: 10,
               left: 10,
             },
-            placement: 'left-top',
+            placement: 'left-start',
           });
         },
       };

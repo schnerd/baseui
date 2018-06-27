@@ -17,8 +17,6 @@ import {getTransformOrigin, getPopoverMarginStyles} from './utils';
  */
 const ARROW_WIDTH = Math.floor(Math.sqrt((ARROW_SIZE * 2) ** 2 / 2));
 
-const BORDER_RADIUS = '4px';
-
 const ANIMATION_START_KEYFRAME = {
   opacity: 0,
   transform: 'scale(0.8)',
@@ -46,8 +44,9 @@ export const PopoverBody = styled('div', props => {
     position: 'absolute',
     zIndex: 1050,
     backgroundColor: $theme.colors.background,
-    border: '1px solid hsl(0, 0%, 90%)',
-    borderRadius: BORDER_RADIUS,
+    borderRadius: $theme.borders.useRoundedCorners
+      ? $theme.borders.radius300
+      : '0px',
     boxShadow: $theme.lighting.shadow600,
 
     // Animation-related styles
@@ -73,12 +72,11 @@ export const PopoverArrow = styled('div', props => {
   return {
     backgroundColor: props.$theme.colors.background,
     boxShadow: props.$theme.lighting.shadow600,
-    border: '1px solid hsl(0, 0%, 90%)',
     width: `${ARROW_WIDTH}px`,
     height: `${ARROW_WIDTH}px`,
     transform: 'rotate(45deg)',
     position: 'absolute',
-    zIndex: 1, // Below inner
+    zIndex: 1, // Below PopoverInner
     ...props.$arrowStyles,
   };
 });
@@ -91,9 +89,11 @@ export const PopoverArrow = styled('div', props => {
  */
 export const PopoverInner = styled('div', ({$theme}) => ({
   backgroundColor: $theme.colors.background,
-  borderRadius: BORDER_RADIUS,
+  borderRadius: $theme.borders.useRoundedCorners
+    ? $theme.borders.radius300
+    : '0px',
   position: 'relative',
-  zIndex: 2, // Above arrow
+  zIndex: 2, // Above PopoverArrow
 }));
 
 /**

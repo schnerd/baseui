@@ -101,7 +101,7 @@ test('Popover - basic click functionality', () => {
 
   popoverBody = wrapper.childAt(1).childAt(0);
   expect(popoverBody).toHaveProp({
-    $placement: 'left-top',
+    $placement: 'leftTop',
     $positionStyles: {top: '10px', left: '10px'},
     $arrowStyles: {top: '10px', right: '-5px'},
     $isAnimating: true,
