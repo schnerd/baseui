@@ -113,17 +113,24 @@ export function prepareArrowPositionStyles(
 /**
  * Converts popover placement to transform origin for animation
  *
- * Examples:
- * topLeft -> left bottom
- * top -> center bottom
- * rightBottom -> left bottom
+ * When an arrow is being used, we want the transform origin to
+ * be the point of the arrow.
  */
-export function getTransformOrigin(placement: PopoverPlacement) {
+export function getTransformOrigin(
+  placement: PopoverPlacement,
+  arrowStyles: PositionStyles,
+) {
   const [position, alignment = 'center'] = splitPlacement(placement);
+  let xOffset;
+  let yOffset;
   if (position === 'top' || position === 'bottom') {
-    return `${alignment} ${getOppositePosition(position)} 0px`;
+    xOffset = arrowStyles.left || alignment;
+    yOffset = getOppositePosition(position);
+  } else {
+    xOffset = getOppositePosition(position);
+    yOffset = arrowStyles.top || alignment;
   }
-  return `${getOppositePosition(position)} ${alignment} 0px`;
+  return `${xOffset} ${yOffset}`;
 }
 
 /**
