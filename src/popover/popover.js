@@ -346,9 +346,21 @@ class Popover extends React.Component<PopoverProps, PopoverPrivateState> {
     const {isOpen, showArrow, components = {}, content} = this.props;
     const {isAnimating, arrowStyles, positionStyles, placement} = this.state;
     const {
-      PopoverArrow = StyledPopoverArrow,
-      PopoverBody = StyledPopoverBody,
-      PopoverInner = StyledPopoverInner,
+      PopoverArrow: {
+        styles: PopoverArrowStyles,
+        props: PopoverArrowProps,
+        component: PopoverArrow = StyledPopoverArrow,
+      } = {},
+      PopoverBody: {
+        styles: PopoverBodyStyles,
+        props: PopoverBodyProps,
+        component: PopoverBody = StyledPopoverBody,
+      } = {},
+      PopoverInner: {
+        styles: PopoverInnerStyles,
+        props: PopoverInnerProps,
+        component: PopoverInner = StyledPopoverInner,
+      } = {},
     } = components;
 
     const interactionProps = {};
@@ -370,17 +382,26 @@ class Popover extends React.Component<PopoverProps, PopoverPrivateState> {
       <PopoverBody
         key="popover-body"
         $ref={this.popperRef}
+        $style={PopoverBodyStyles}
         {...sharedProps}
         {...interactionProps}
+        {...PopoverBodyProps}
       >
         {showArrow ? (
           <PopoverArrow
             key="popover-arrow"
             $ref={this.arrowRef}
+            $style={PopoverArrowStyles}
             {...sharedProps}
+            {...PopoverArrowProps}
           />
         ) : null}
-        <PopoverInner key="popover-inner">
+        <PopoverInner
+          key="popover-inner"
+          $style={PopoverInnerStyles}
+          {...sharedProps}
+          {...PopoverInnerProps}
+        >
           {typeof content === 'function' ? content({}) : content}
         </PopoverInner>
       </PopoverBody>
