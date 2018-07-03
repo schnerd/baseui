@@ -1,6 +1,10 @@
 // @flow
 import * as React from 'react';
-import type {PopoverProps, StatefulPopoverContainerProps, State} from './types';
+import type {
+  PopoverPropsWithoutChildren,
+  StatefulPopoverContainerProps,
+  State,
+} from './types';
 
 import {PLACEMENT, TRIGGER_TYPE} from './constants';
 
@@ -21,6 +25,10 @@ class StatefulContainer extends React.Component<
     ...this.props.initialState,
   };
 
+  onBlur = () => {
+    this.close();
+  };
+
   onClick = () => {
     if (this.state.isOpen) {
       this.close();
@@ -35,6 +43,10 @@ class StatefulContainer extends React.Component<
 
   onEsc = () => {
     this.close();
+  };
+
+  onFocus = () => {
+    this.open();
   };
 
   onMouseEnter = () => {
@@ -70,7 +82,7 @@ class StatefulContainer extends React.Component<
       triggerType,
     } = this.props;
 
-    const popoverProps: $Diff<PopoverProps, {children: React.Node}> = {
+    const popoverProps: PopoverPropsWithoutChildren = {
       isOpen: this.state.isOpen,
       components,
       content,
@@ -88,6 +100,8 @@ class StatefulContainer extends React.Component<
       popoverProps.onEsc = this.onEsc;
     }
     if (triggerType === TRIGGER_TYPE.hover) {
+      popoverProps.onBlur = this.onBlur;
+      popoverProps.onFocus = this.onFocus;
       popoverProps.onMouseEnter = this.onMouseEnter;
       popoverProps.onMouseLeave = this.onMouseLeave;
     } else {

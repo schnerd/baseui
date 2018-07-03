@@ -57,9 +57,11 @@ export type BasePopoverProps = {
 export type PopoverProps = BasePopoverProps & {
   children: ChildrenType,
   isOpen: boolean,
+  onBlur?: () => void,
   onClick?: (e: Event) => void,
   onClickOutside?: () => void,
   onEsc?: () => void,
+  onFocus?: () => void,
   onMouseEnter?: () => void,
   onMouseLeave?: () => void,
 };
@@ -84,6 +86,11 @@ export type StatefulPopoverContainerProps = $Diff<
     props: $Diff<PopoverProps, {children: ChildrenType}>,
   ) => React.Node,
 };
+
+export type PopoverPropsWithoutChildren = $Diff<
+  PopoverProps,
+  {children: ChildrenType},
+>;
 
 export type PositionStyles = {
   top?: number | string,
@@ -122,12 +129,15 @@ export type PopoverPrivateState = {
 };
 
 export type AnchorProps = {
+  onBlur?: () => void,
+  onClick?: (e: Event) => void,
+  onFocus?: () => void,
   onMouseEnter?: (e: Event) => void,
   onMouseLeave?: (e: Event) => void,
-  onClick?: (e: Event) => void,
   /* eslint-disable flowtype/no-weak-types */
   // TODO: Get this to work without 'any'
   ref?: React.Ref<any>,
   $ref?: React.Ref<any>,
   /* eslint-enable flowtype/no-weak-types */
+  tabIndex?: '0',
 };

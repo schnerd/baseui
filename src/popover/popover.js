@@ -305,6 +305,11 @@ class Popover extends React.Component<PopoverProps, PopoverPrivateState> {
     if (this.isHoverTrigger()) {
       anchorProps.onMouseEnter = this.onAnchorMouseEnter;
       anchorProps.onMouseLeave = this.onAnchorMouseLeave;
+
+      // Make it focusable too
+      anchorProps.onBlur = this.props.onBlur;
+      anchorProps.onFocus = this.props.onFocus;
+      anchorProps.tabIndex = '0';
     }
     return anchorProps;
   }
