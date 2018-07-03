@@ -193,4 +193,49 @@ storiesOf('Popover', module)
     >
       <Button>Hover Me</Button>
     </StatefulPopover>
-  ));
+  ))
+  .add('popover w/ overrides', () => {
+    function CustomPopoverInner({$borderColor, children}) {
+      return (
+        <div style={{border: `1px solid ${$borderColor}`}}>
+          <div>
+            <em>Popover Title</em>
+          </div>
+          <div>{children}</div>
+        </div>
+      );
+    }
+
+    return (
+      <StatefulPopover
+        components={{
+          PopoverInner: {
+            // Example is contrived here, but you could imagine you have a custom
+            // implementation the override prop is changing dynamically in the
+            // parent component
+            props: {$borderColor: 'red'},
+            component: CustomPopoverInner,
+          },
+        }}
+        content={popoverContent}
+      >
+        <Button>Press Me</Button>
+      </StatefulPopover>
+    );
+  })
+  .add('popover w/ style override', () => {
+    return (
+      <StatefulPopover
+        components={{
+          PopoverInner: {
+            styles: props => ({
+              border: `1px solid ${props.$showArrow ? 'red' : 'blue'}`,
+            }),
+          },
+        }}
+        content={popoverContent}
+      >
+        <Button>Press Me</Button>
+      </StatefulPopover>
+    );
+  });

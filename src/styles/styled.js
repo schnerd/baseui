@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import {createStyled} from 'styletron-react-core';
+import {createStyled, withStyleDeep} from 'styletron-react-core';
 import {driver} from 'styletron-standard';
 
 import {ThemeContext} from './theme-provider';
@@ -13,4 +13,18 @@ const wrapper = StyledComponent => props => (
   </ThemeContext.Consumer>
 );
 
-export default createStyled({wrapper, getInitialStyle, driver});
+const baseStyled = createStyled({wrapper, getInitialStyle, driver});
+
+export default function styledWrapper(...args) {
+  // Also allow passing deep style overrides via $style prop
+  // Ex: <StyledDiv $style={{color: 'red'}} />
+  // Issue for supporting this natively in styletron:
+  // https://github.com/rtsao/styletron/issues/221
+  return withStyleDeep(baseStyled(...args), props => {
+    const {$style} = props;
+    if (typeof $style === 'function') {
+      return $style(props);
+    }
+    return $style;
+  });
+}

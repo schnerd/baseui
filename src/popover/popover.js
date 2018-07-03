@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import {document} from 'global';
 import Popper from 'popper.js';
 import isBrowser from '../utils/is-browser';
+import {renderInternal} from '../helpers';
 import {PLACEMENT, TRIGGER_TYPE} from './constants';
 import {
   PopoverArrow as StyledPopoverArrow,
@@ -33,6 +34,12 @@ class Popover extends React.Component<PopoverProps, PopoverPrivateState> {
     placement: PLACEMENT.auto,
     showArrow: false,
     triggerType: TRIGGER_TYPE.click,
+  };
+
+  static defaultInternals = {
+    PopoverArrow: StyledPopoverArrow,
+    PopoverBody: StyledPopoverBody,
+    PopoverInner: StyledPopoverInner,
   };
 
   /* eslint-disable react/sort-comp */
@@ -343,13 +350,8 @@ class Popover extends React.Component<PopoverProps, PopoverPrivateState> {
   }
 
   renderPopover() {
-    const {isOpen, showArrow, components = {}, content} = this.props;
+    const {isOpen, showArrow, content} = this.props;
     const {isAnimating, arrowStyles, positionStyles, placement} = this.state;
-    const {
-      PopoverArrow = StyledPopoverArrow,
-      PopoverBody = StyledPopoverBody,
-      PopoverInner = StyledPopoverInner,
-    } = components;
 
     const interactionProps = {};
     if (this.isHoverTrigger()) {
@@ -366,24 +368,33 @@ class Popover extends React.Component<PopoverProps, PopoverPrivateState> {
       $isOpen: isOpen,
     };
 
-    return (
-      <PopoverBody
-        key="popover-body"
-        $ref={this.popperRef}
-        {...sharedProps}
-        {...interactionProps}
-      >
-        {showArrow ? (
-          <PopoverArrow
-            key="popover-arrow"
-            $ref={this.arrowRef}
-            {...sharedProps}
-          />
-        ) : null}
-        <PopoverInner key="popover-inner">
-          {typeof content === 'function' ? content({}) : content}
-        </PopoverInner>
-      </PopoverBody>
+    return renderInternal(
+      this,
+      'PopoverBody',
+      {
+        key: 'popover-body',
+        $ref: this.popperRef,
+        ...sharedProps,
+        ...interactionProps,
+      },
+      [
+        showArrow
+          ? renderInternal(this, 'PopoverArrow', {
+              key: 'popover-arrow',
+              $ref: this.arrowRef,
+              ...sharedProps,
+            })
+          : null,
+        renderInternal(
+          this,
+          'PopoverInner',
+          {
+            key: 'popover-inner',
+            ...sharedProps,
+          },
+          typeof content === 'function' ? content({}) : content,
+        ),
+      ],
     );
   }
 
