@@ -51,7 +51,10 @@ export const PopoverBody = styled('div', props => {
     boxShadow: $theme.lighting.shadow600,
 
     // Animation-related styles
-    transformOrigin: getTransformOrigin($placement, $arrowStyles),
+    transformOrigin: getTransformOrigin(
+      $placement,
+      $showArrow ? $arrowStyles : undefined,
+    ),
     animationDuration: '0.2s',
     animationFillMode: 'both',
     animationPlayState: $isAnimating ? 'running' : 'paused',

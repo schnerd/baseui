@@ -118,7 +118,7 @@ export function prepareArrowPositionStyles(
  */
 export function getTransformOrigin(
   placement: PopoverPlacement,
-  arrowStyles: PositionStyles,
+  arrowStyles?: PositionStyles = {},
 ) {
   const [position, alignment = 'center'] = splitPlacement(placement);
   let xOffset;
