@@ -2,7 +2,11 @@
 /* eslint-disable react/no-find-dom-node */
 import * as React from 'react';
 import ReactDOM from 'react-dom';
+<<<<<<< Updated upstream
 import {document} from 'global';
+=======
+import document from 'global/document';
+>>>>>>> Stashed changes
 import Popper from 'popper.js';
 import isBrowser from '../utils/is-browser';
 import getBuiId from '../utils/get-bui-id';
@@ -203,7 +207,11 @@ class Popover extends React.Component<PopoverPropsT, PopoverPrivateStateT> {
     if (onMouseLeaveDelay) {
       this.onMouseLeaveTimer = setTimeout(
         this.triggerOnMouseLeave,
+<<<<<<< Updated upstream
         onMouseLeaveDelay,
+=======
+        onMouseLeaveDelay
+>>>>>>> Stashed changes
       );
       return;
     }
@@ -221,7 +229,11 @@ class Popover extends React.Component<PopoverPropsT, PopoverPrivateStateT> {
     if (onMouseEnterDelay) {
       this.onMouseEnterTimer = setTimeout(
         this.triggerOnMouseEnter,
+<<<<<<< Updated upstream
         onMouseEnterDelay,
+=======
+        onMouseEnterDelay
+>>>>>>> Stashed changes
       );
       return;
     }
@@ -378,7 +390,11 @@ class Popover extends React.Component<PopoverPropsT, PopoverPrivateStateT> {
       console.error(
         `[baseui] Exactly 1 child must be passed to Popover/Tooltip, found ${
           childArray.length
+<<<<<<< Updated upstream
         } children`,
+=======
+        } children`
+>>>>>>> Stashed changes
       );
     }
     return childArray[0];
