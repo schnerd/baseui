@@ -289,4 +289,11 @@ export default {
   tooltip: {
     backgroundColor: mono900,
   },
+  // Bad names, just for a proof-of-concept.
+  inputRoot: {
+    border: '1px solid green',
+  },
+  inputInput: props => ({
+    color: props.$disabled ? 'green' : 'purple',
+  }),
 };

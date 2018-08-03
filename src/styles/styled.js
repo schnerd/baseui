@@ -20,16 +20,36 @@ const baseStyled = createStyled({wrapper, getInitialStyle, driver});
 
 // TODO: Need a flow expert to help remove this 'any' type
 // eslint-disable-next-line flowtype/no-weak-types
-export default function styledWrapper(...args: any) {
+export default function styledWrapper(base, styler, themeName) {
   // Also allow passing deep style overrides via $style prop
   // Ex: <StyledDiv $style={{color: 'red'}} />
   // Issue for supporting this natively in styletron:
   // https://github.com/rtsao/styletron/issues/221
-  return withStyleDeep(baseStyled(...args), props => {
-    const {$style} = props;
-    if (typeof $style === 'function') {
-      return $style(props);
+  return withStyleDeep(baseStyled(base, styler), props => {
+    const {$style, $theme} = props;
+
+    let style;
+    if ($style) {
+      if (typeof $style === 'function') {
+        style = $style(props);
+      } else {
+        style = $style;
+      }
     }
-    return $style;
+
+    const themeOverride = $theme[themeName];
+    if (themeOverride) {
+      if (typeof themeOverride === 'function') {
+        // These should really be deep merges (not shallow)
+        style = {
+          ...style,
+          ...themeOverride(props),
+        };
+      } else {
+        style = {...style, ...themeOverride};
+      }
+    }
+
+    return style;
   });
 }

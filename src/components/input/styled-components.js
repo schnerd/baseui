@@ -42,15 +42,19 @@ function getFont(size, typography) {
   }[size];
 }
 
-export const Root = styled('div', props => {
-  const {$size, $theme: {colors, typography}} = props;
-  return {
-    ...getFont($size, typography),
-    color: colors.mono1000,
-    display: 'flex',
-    width: '100%',
-  };
-});
+export const Root = styled(
+  'div',
+  props => {
+    const {$size, $theme: {colors, typography}} = props;
+    return {
+      ...getFont($size, typography),
+      color: colors.mono1000,
+      display: 'flex',
+      width: '100%',
+    };
+  },
+  'inputRoot',
+);
 
 export const Label = styled('label', props => {
   const {$disabled, $theme: {colors, sizing, typography}} = props;
@@ -140,29 +144,33 @@ export const InputContainer = styled('div', props => {
   };
 });
 
-export const Input = styled('input', props => {
-  const {
-    $disabled,
-    $error,
-    $size,
-    $theme: {colors, sizing, typography},
-  } = props;
-  return {
-    ...getFont($size, typography),
-    color: $disabled ? colors.mono600 : colors.mono1000,
-    caretColor: $error ? colors.negative400 : colors.primary,
-    boxSizing: 'border-box',
-    backgroundColor: 'transparent',
-    borderWidth: '0',
-    borderStyle: 'none',
-    outline: 'none',
-    ...getInputPadding($size, sizing),
-    width: '100%',
-    '::placeholder': {
-      color: $disabled ? colors.mono600 : colors.mono700,
-    },
-    ':hover': {
-      cursor: $disabled ? 'not-allowed' : 'text',
-    },
-  };
-});
+export const Input = styled(
+  'input',
+  props => {
+    const {
+      $disabled,
+      $error,
+      $size,
+      $theme: {colors, sizing, typography},
+    } = props;
+    return {
+      ...getFont($size, typography),
+      color: $disabled ? colors.mono600 : colors.mono1000,
+      caretColor: $error ? colors.negative400 : colors.primary,
+      boxSizing: 'border-box',
+      backgroundColor: 'transparent',
+      borderWidth: '0',
+      borderStyle: 'none',
+      outline: 'none',
+      ...getInputPadding($size, sizing),
+      width: '100%',
+      '::placeholder': {
+        color: $disabled ? colors.mono600 : colors.mono700,
+      },
+      ':hover': {
+        cursor: $disabled ? 'not-allowed' : 'text',
+      },
+    };
+  },
+  'inputInput',
+);
