@@ -6,6 +6,8 @@ import {ThemeProvider} from '../src/styles';
 import DEFAULT_THEME from '../src/themes/light-theme';
 import {withInfo} from '@storybook/addon-info';
 import {withKnobs, text, boolean, number} from '@storybook/addon-knobs';
+import styletronStyled from '../src/styles/styletron';
+import emotionStyled from '../src/styles/emotion';
 
 const engine = new Styletron();
 
@@ -26,7 +28,15 @@ addDecorator(withKnobs);
 addDecorator(story => {
   return (
     <StyletronProvider value={engine}>
-      <ThemeProvider theme={DEFAULT_THEME}>{story()}</ThemeProvider>
+      <ThemeProvider
+        theme={DEFAULT_THEME}
+        styled={
+          // Both styletronStyled and emotionStyled work here!
+          emotionStyled
+        }
+      >
+        {story()}
+      </ThemeProvider>
     </StyletronProvider>
   );
 });

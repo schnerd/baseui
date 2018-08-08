@@ -2,17 +2,13 @@
 /*global module */
 import * as React from 'react';
 import {storiesOf} from '@storybook/react';
-import {withStyle} from 'styletron-react';
 import {styled} from '../../styles';
-import {withProps} from '../../helpers';
 import {withReadme} from 'storybook-readme';
 //$FlowFixMe
 import InputReadme from '../../../rfcs/input-component.md';
 import {
   Input as ControlledInput,
   StatefulInput as Input,
-  StyledInputContainer,
-  StyledInput,
   StyledLabel,
   SIZE,
 } from './index';
@@ -56,7 +52,7 @@ const InputIcon = styled('span', props => {
   };
 });
 
-const RootWithStyle = withStyle(StyledInputContainer, props => {
+const RootStyleOverrides = props => {
   const {$disabled, $error, $isFocused, $theme: {colors, sizing}} = props;
   return {
     borderColor: $disabled
@@ -72,28 +68,14 @@ const RootWithStyle = withStyle(StyledInputContainer, props => {
           : $isFocused ? 'lightseagreen' : 'transparent'
     }`,
   };
-});
+};
 
-const InputWithProps = withProps(StyledInput, {
-  'data-test': 'test',
-});
-
-const LabelWithProps = withProps(StyledLabel, {
-  'data-test-label': 'test',
-});
-
-const LabelWithStyle = withStyle(StyledLabel, ({$isFocused, $theme}) => {
-  return {
-    display: 'flex',
-    color: $isFocused ? $theme.colors.primary : $theme.colors.mono1000,
-  };
-});
 const CustomLabel = ({children, ...rest}: {children: React.Node}) => {
   return (
-    <LabelWithStyle {...rest} data-label="data-label">
+    <StyledLabel {...rest} data-label="data-label">
       {children}
       <InputIcon $position="left" {...rest} />
-    </LabelWithStyle>
+    </StyledLabel>
   );
 };
 
@@ -363,14 +345,18 @@ storiesOf('Input', module)
       <React.Fragment>
         <Input
           label="Input with style overrides"
-          overrides={{InputContainer: RootWithStyle}}
+          overrides={{InputContainer: {style: RootStyleOverrides}}}
           placeholder="With style overrides on the Root element"
         />
         <Input
           label="Input with extra props"
           overrides={{
-            Input: InputWithProps,
-            Label: LabelWithProps,
+            Input: {
+              props: {'data-test': 'test'},
+            },
+            Label: {
+              props: {'data-test-label': 'test'},
+            },
           }}
           placeholder="With a 'data-test' attrs passes to the input and label elements"
         />
