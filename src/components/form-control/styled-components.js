@@ -60,3 +60,10 @@ export const Caption = styled('div', props => {
     marginLeft: '0',
   };
 });
+
+export const ControlContainer = styled('div', props => {
+  const {$theme: {sizing}} = props;
+  return {
+    marginBottom: sizing.scale600,
+  };
+});

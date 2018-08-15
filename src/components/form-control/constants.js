@@ -22,15 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 // @flow
-import React from 'react';
-import StatefulContainer from './stateful-container';
-import Textarea from './textarea';
-import type {StatefulTextareaPropsT, TextareaPropsT} from './types';
-
-export default function StatefulTextarea(props: StatefulTextareaPropsT) {
-  return (
-    <StatefulContainer {...props}>
-      {(childrenProps: TextareaPropsT) => <Textarea {...childrenProps} />}
-    </StatefulContainer>
-  );
-}
+// Dict of props to prepend $ to pass thru to styletron
+export const STYLETRON_PROP_MAPPER = {
+  disabled: true,
+  error: true,
+  required: true,
+  size: true,
+};

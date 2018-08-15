@@ -24,55 +24,41 @@ THE SOFTWARE.
 // @flow
 import React from 'react';
 import {shallow} from 'enzyme';
-import {TextareaContainer, Textarea} from '../styled-components';
-import {SIZE} from '../../input';
-describe('Textarea', () => {
-  test('TextareaContainer - basic render', () => {
-    const component = shallow(
-      <TextareaContainer $size={SIZE.default}>
-        <span />
-      </TextareaContainer>,
-    );
+import {
+  Label as StyledLabel,
+  Caption as StyledCaption,
+} from '../styled-components';
+
+describe('FormControl - Label and Caption for controls', () => {
+  test('StyledLabel - basic render', () => {
+    const component = shallow(<StyledLabel>Label</StyledLabel>);
     expect(component.instance().getStyles()).toMatchSnapshot(
-      'TextareaContainer has correct default styles',
-    );
-    component.setProps({
-      $isFocused: true,
-    });
-    expect(component.instance().getStyles()).toMatchSnapshot(
-      'TextareaContainer has correct styles when focused',
+      'StyledLabel has correct default styles',
     );
     component.setProps({
-      $size: SIZE.compact,
+      $disabled: true,
     });
     expect(component.instance().getStyles()).toMatchSnapshot(
-      'TextareaContainer has correct styles when compact',
+      'StyledLabel has correct styles when compact and disabled',
+    );
+  });
+
+  test('StyledCaption - basic render', () => {
+    const component = shallow(<StyledCaption>Caption</StyledCaption>);
+    expect(component.instance().getStyles()).toMatchSnapshot(
+      'StyledCaption has correct default styles',
     );
     component.setProps({
       $error: true,
     });
     expect(component.instance().getStyles()).toMatchSnapshot(
-      'TextareaContainer has correct styles when error',
+      'StyledCaption has correct styles when compact and error is boolean',
     );
     component.setProps({
-      $disabled: true,
+      $error: 'Error message',
     });
     expect(component.instance().getStyles()).toMatchSnapshot(
-      'TextareaContainer has correct styles when disabled',
-    );
-  });
-
-  test('Textarea element - basic render', () => {
-    const component = shallow(<Textarea $size={SIZE.default} />);
-    expect(component.instance().getStyles()).toMatchSnapshot(
-      'Textarea has correct default styles',
-    );
-    component.setProps({
-      $size: SIZE.compact,
-      $disabled: true,
-    });
-    expect(component.instance().getStyles()).toMatchSnapshot(
-      'Textarea has correct styles when compact and disabled',
+      'StyledCaption has correct styles when error is a string',
     );
   });
 });

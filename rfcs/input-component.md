@@ -6,12 +6,10 @@
 * `StatefulContainer`
 * `Input`
 * `BaseInput`
-* `StyledLabel`
 * `StyledRoot`
 * `StyledInputEnhancer`
 * `StyledInputContainer`
 * `StyledInput`
-* `StyledCaption`
 * `STATE_CHANGE_TYPE`
 * `ADJOINED`
 * `SIZE`
@@ -39,8 +37,8 @@
 ### Input component API
 
 * All properties of the BaseInput except `adjoined`
-* `overrides: {Label, Root, StartEnhancer, InputContainer, Input, Before, After, EndEnhancer, Caption}` - Optional
-  * `Label: ReactComponent` - Optional
+* `overrides: {Root, StartEnhancer, InputContainer, Input, Before, After, EndEnhancer}` - Optional
+  Overrides for presentational components.
   * `Root: ReactComponent` - Optional
   * `StartEnhancer: ReactComponent` - Optional
   * `InputContainer: ReactComponent` - Optional
@@ -48,12 +46,6 @@
   * `Input: ReactComponent` - Optional
   * `After: ReactComponent` - Optional
   * `EndEnhancer: ReactComponent` - Optional
-  * `Caption: ReactComponent` - Optional
-    Overrides for presentational components.
-* `label: node | function` - Optional
-  A label rendered above the input field.
-* `caption: node | function` - Optional
-  A caption rendered below the input field.
 * `startEnhancer: node | function` - Optional
   An input helper rendered before and attached to the input field.
 * `endEnhancer: node | function` - Optional
@@ -85,8 +77,8 @@
   A ref to access an input element.
 * `autoFocus: boolean` - Optional
   If `true` the input will be focused on the first mount.
-* `error: boolean | node | function` - Optional
-  Error state of the input. If a string or node element is passed it will be rendered in place of caption as an error message.
+* `error: boolean` - Optional
+  Error state of the input.
 * `adjoined: 'none' | 'left' | 'right' | 'both'`
   Defines styles for inputs that are grouped with other controls.
 * `size: 'default' | 'compact'`
@@ -104,7 +96,7 @@ Next properties are passed to every presentational (styled) component that input
 
 * `$isFocused: boolean`
 * `$disabled: boolean`
-* `$error: boolean | node`
+* `$error: boolean`
 * `$adjoined: 'none' | 'left' | 'right' | 'both'`
 * `$size: 'default' | 'compact'`
 * `$required: boolean`

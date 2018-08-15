@@ -52,7 +52,7 @@ export type StateReducerT = (
 export type SharedPropsT = {
   $isFocused: boolean,
   $disabled: boolean,
-  $error: boolean | React.Node,
+  $error: boolean,
   $adjoined: AdjoinedT,
   $size: SizeT,
   $required: boolean,
@@ -71,17 +71,15 @@ export type BaseInputComponentsT = {
 
 export type InputComponentsT = BaseInputComponentsT & {
   Root?: OverrideT<*>,
-  Label?: OverrideT<*>,
   StartEnhancer?: OverrideT<*>,
   EndEnhancer?: OverrideT<*>,
-  Caption?: OverrideT<*>,
 };
 
 export type BaseInputPropsT = {
   adjoined: AdjoinedT,
   autoFocus: boolean,
   disabled: boolean,
-  error: boolean | React.Node | ((props: PropsT) => React.Node),
+  error: boolean,
   id: string,
   name: string,
   inputRef: {current: ?React.ElementRef<'input'>},
@@ -100,8 +98,6 @@ export type BaseInputPropsT = {
 export type InputPropsT = {
   ...BaseInputPropsT,
   overrides: InputComponentsT,
-  label: ?(React.Node | ((props: PropsT) => React.Node)),
-  caption: ?(React.Node | ((props: PropsT) => React.Node)),
   startEnhancer: ?(React.Node | ((props: PropsT) => React.Node)),
   endEnhancer: ?(React.Node | ((props: PropsT) => React.Node)),
   onFocus: (e: SyntheticEventT) => void,

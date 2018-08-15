@@ -1,18 +1,37 @@
+/*
+MIT License
+
+Copyright (c) 2018 Uber Technologies, Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
 // @flow
 import * as React from 'react';
 import type {OverrideT} from '../../helpers/overrides';
-import type {SizeT} from '../input/types';
 
 export type FormControlPropsT = {
   overrides: {
     Label?: OverrideT<*>,
     Caption?: OverrideT<*>,
   },
-  label: ?(React.Node | ((props: PropsT) => React.Node)),
-  caption: ?(React.Node | ((props: PropsT) => React.Node)),
-  error: boolean | React.Node | ((props: PropsT) => React.Node),
-  id: string,
-  disabled?: boolean,
-  required?: boolean,
-  size?: SizeT,
+  label: ?(React.Node | ((props: {}) => React.Node)),
+  caption: ?(React.Node | ((props: {}) => React.Node)),
+  error: boolean | React.Node | ((props: {}) => React.Node),
+  children: React.Node,
 };

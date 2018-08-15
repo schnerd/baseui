@@ -1,26 +1,26 @@
 # Form Control
 
+FormControl component adds label and caption for it's child control. If the error message is passed it renders error message in place of caption.
+
 ### Exports
 
-* `FormControlHOC`
-* `StyledRoot`
+* `FormControl`
 * `StyledLabel`
 * `StyledCaption`
-* `SIZE`
+* `StyledControlContainer`
 
 ### Form Control API
 
-* Any property of a form control
-* `overrides: {Label, Caption, [...otherFormControlOverrides]}` - Optional
+* `overrides: {Label, Caption}` - Optional
+  Overrides for presentational components.
   * `Label: ReactComponent | {props: {}, style: {}, component: ReactComponent}` - Optional
   * `Caption: ReactComponent | {props: {}, style: {}, component: ReactComponent}` - Optional
-    Overrides for presentational components.
 * `label: node | function` - Optional
   A label rendered above the input field.
 * `caption: node | function` - Optional
   A caption rendered below the input field.
-* `error: boolean | node | function` - Optional
-  Error state of the input. If a string or node element is passed it will be rendered in place of caption as an error message.
+* `error: node | function` - Optional
+  Error state of the input. If an error prop passed it will be rendered in place of caption as an error message.
 
 ### Presentational components props API
 
@@ -28,8 +28,8 @@ Next properties are passed to every presentational (styled) component that form 
 
 * `$disabled: boolean`
 * `$error: boolean | node`
-* `$size: 'default' | 'compact'`
 * `$required: boolean`
+* `$size: 'default' | 'compact'`
 * `$theme: theme`
 
 ### Usage
@@ -37,19 +37,22 @@ Next properties are passed to every presentational (styled) component that form 
 ```javascript
 import {FormControl} from 'baseui/form-control';
 import {Input} from 'baseui/input';
+import {Checkbox} from 'baseui/checkbox';
 
 export default () => {
   return (
     <div>
-      <InputControl
-        label="Input label"
-        caption="Input caption"
-        error="Input error"
-      />
-      <FormControl label="Input label" caption="Input caption" caption>
+      <FormControl label="Input label" caption="Input caption">
         <Input />
       </FormControl>
-      <FormControl label="Input label" caption="Input caption" error>
+      <FormControl label="Checkbox label" caption="Checkbox caption">
+        <Checkbox>Checkbox control</Checkbox>
+      </FormControl>
+      <FormControl
+        label="Input label"
+        caption="Input caption"
+        error="Error message"
+      >
         <Input />
       </FormControl>
     </div>

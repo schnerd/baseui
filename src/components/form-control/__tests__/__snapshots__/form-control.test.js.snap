@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormControl - Label and Caption for controls Passes correct props from the control to label and caption: Caption gets correct error value 1`] = `
+Object {
+  "$disabled": true,
+  "$error": true,
+  "$required": true,
+  "$size": "default",
+  "children": "Caption test",
+}
+`;
+
+exports[`FormControl - Label and Caption for controls Passes correct props from the control to label and caption: Caption gets correct props from the control 1`] = `
+Object {
+  "$disabled": true,
+  "$error": true,
+  "$required": true,
+  "$size": "default",
+  "children": "Caption test",
+}
+`;
+
+exports[`FormControl - Label and Caption for controls Passes correct props from the control to label and caption: Label gets correct error value 1`] = `
+Object {
+  "$disabled": true,
+  "$error": true,
+  "$required": true,
+  "$size": "default",
+  "children": "Label test",
+  "htmlFor": "bui-mock-id",
+}
+`;
+
+exports[`FormControl - Label and Caption for controls Passes correct props from the control to label and caption: Label gets correct props from the control 1`] = `
+Object {
+  "$disabled": true,
+  "$error": true,
+  "$required": true,
+  "$size": "default",
+  "children": "Label test",
+  "htmlFor": "bui-mock-id",
+}
+`;
+
+exports[`FormControl - Label and Caption for controls Renders caption if error is set on the control: Caption gets correct props if error set on the control 1`] = `
+Object {
+  "$disabled": false,
+  "$error": true,
+  "$required": false,
+  "$size": "default",
+  "children": "Caption test",
+}
+`;
+
+exports[`FormControl - Label and Caption for controls Renders label and caption for the Teaxtarea component: Caption gets correct props 1`] = `
+Object {
+  "$disabled": false,
+  "$error": false,
+  "$required": true,
+  "$size": "default",
+  "children": "Caption test",
+}
+`;
+
+exports[`FormControl - Label and Caption for controls Renders label and caption for the Teaxtarea component: Label gets correct props 1`] = `
+Object {
+  "$disabled": false,
+  "$error": false,
+  "$required": true,
+  "$size": "default",
+  "children": "Label test",
+  "htmlFor": "bui-mock-id",
+}
+`;
+
+exports[`FormControl - Label and Caption for controls Renders label, caption, and error for the Input component: Caption gets correct props 1`] = `
+Object {
+  "$disabled": false,
+  "$error": false,
+  "$required": false,
+  "$size": "default",
+  "children": "Caption test",
+}
+`;
+
+exports[`FormControl - Label and Caption for controls Renders label, caption, and error for the Input component: Caption gets correct props when error is passed 1`] = `
+Object {
+  "$disabled": false,
+  "$error": false,
+  "$required": false,
+  "$size": "default",
+  "children": "Caption test",
+}
+`;
+
+exports[`FormControl - Label and Caption for controls Renders label, caption, and error for the Input component: Label gets correct props 1`] = `
+Object {
+  "$disabled": false,
+  "$error": false,
+  "$required": false,
+  "$size": "default",
+  "children": "Label test",
+  "htmlFor": "bui-mock-id",
+}
+`;
+
+exports[`Renders label and caption for the Checkbox component: Caption gets correct props 1`] = `
+Object {
+  "$disabled": false,
+  "$error": undefined,
+  "$required": true,
+  "children": "Caption test",
+}
+`;
+
+exports[`Renders label and caption for the Checkbox component: Label gets correct props 1`] = `
+Object {
+  "$disabled": false,
+  "$error": undefined,
+  "$required": true,
+  "children": "Label test",
+  "htmlFor": undefined,
+}
+`;
+
+exports[`Renders label and caption for the RadioGroup component: Caption gets correct props 1`] = `
+Object {
+  "$disabled": false,
+  "$error": undefined,
+  "$required": true,
+  "children": "Caption test",
+}
+`;
+
+exports[`Renders label and caption for the RadioGroup component: Label gets correct props 1`] = `
+Object {
+  "$disabled": false,
+  "$error": undefined,
+  "$required": true,
+  "children": "Label test",
+  "htmlFor": undefined,
+}
+`;
