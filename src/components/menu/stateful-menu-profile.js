@@ -2,26 +2,34 @@
 /* eslint-disable react/prefer-stateless-function */
 import * as React from 'react';
 
-import Menu from './menu';
+import MenuProfile from './menu-profile';
 import StatefulContainer from './stateful-container';
 
-import type {StatefulMenuPropsT} from './types';
+import type {StatefulMenuProfilePropsT} from './types';
 
 export default class StatefulMenu extends React.PureComponent<
-  StatefulMenuPropsT,
+  StatefulMenuProfilePropsT,
 > {
   static defaultProps = {
     overrides: {},
   };
 
   render() {
-    const {overrides, getItemLabel, ...props} = this.props;
+    const {
+      overrides,
+      getProfileItemLabels,
+      getProfileItemImg,
+      getProfileItemImgText,
+      ...props
+    } = this.props;
     return (
       <StatefulContainer {...props}>
         {renderProps => (
-          <Menu
+          <MenuProfile
             {...renderProps}
-            getItemLabel={getItemLabel}
+            getProfileItemLabels={getProfileItemLabels}
+            getProfileItemImg={getProfileItemImg}
+            getProfileItemImgText={getProfileItemImgText}
             overrides={overrides}
           />
         )}

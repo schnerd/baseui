@@ -111,8 +111,7 @@ export default class MenuStatefulContainer extends React.Component<
 
   getRequiredItemProps: GetRequiredItemPropsFnT = (item, index) => {
     const {highlightedIndex} = this.state;
-    const {getItemLabel, onItemSelect} = this.props;
-    const itemString = getItemLabel(item);
+    const {onItemSelect} = this.props;
     // Create and store ref or re-use
     let itemRef = this.refList[index];
     if (!itemRef) {
@@ -120,7 +119,7 @@ export default class MenuStatefulContainer extends React.Component<
       this.refList[index] = itemRef;
     }
     return {
-      key: `${itemString}-${index}`,
+      key: `${index}`,
       ref: itemRef,
       isHighlighted: highlightedIndex === index,
       // $FlowFixMe
@@ -132,13 +131,12 @@ export default class MenuStatefulContainer extends React.Component<
 
   render() {
     const {highlightedIndex} = this.state;
-    const {children, items, getItemLabel} = this.props;
+    const {children, items} = this.props;
     // $FlowFixMe
     return children(
       ({
         highlightedIndex,
         items,
-        getItemLabel,
         rootRef: this.rootRef,
         getRequiredItemProps: this.getRequiredItemProps,
       }: RenderPropsT),

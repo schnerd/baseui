@@ -9,7 +9,6 @@ import {scrollItemIntoView} from '../utils';
 jest.mock('../utils');
 
 const mockItems = [{label: 'item1'}, {label: 'item2'}];
-const mockGetItemLabel = item => item.label;
 const mockChildrenFn = jest.fn().mockImplementation(() => <div />);
 const mockItemSelect = jest.fn();
 
@@ -19,7 +18,6 @@ const originalRemoveEventListener = document.removeEventListener;
 function getSharedProps() {
   return {
     items: mockItems,
-    getItemLabel: mockGetItemLabel,
     onItemSelect: mockItemSelect,
     children: mockChildrenFn,
     stateReducer: jest
@@ -50,7 +48,6 @@ describe('Menu StatefulContainer', () => {
   test('renders and passes required props to children function', () => {
     const props = {
       items: mockItems,
-      getItemLabel: mockGetItemLabel,
       onItemSelect: mockItemSelect,
       children: mockChildrenFn,
     };
@@ -60,7 +57,6 @@ describe('Menu StatefulContainer', () => {
     expect(mockChildrenFn.mock.calls[0][0]).toEqual({
       highlightedIndex: -1,
       items: mockItems,
-      getItemLabel: mockGetItemLabel,
       rootRef: React.createRef(),
       getRequiredItemProps: component.instance().getRequiredItemProps,
     });
@@ -89,7 +85,7 @@ describe('Menu StatefulContainer', () => {
     const item = mockItems[0];
     const props = component.instance().getRequiredItemProps(item, 0);
     expect(props).toEqual({
-      key: 'item1-0',
+      key: '0',
       ref: React.createRef(),
       isHighlighted: false,
       onClick: props.onClick,
@@ -108,7 +104,7 @@ describe('Menu StatefulContainer', () => {
     const item = mockItems[0];
     const props = component.instance().getRequiredItemProps(item, 0);
     expect(props).toEqual({
-      key: 'item1-0',
+      key: '0',
       ref: React.createRef(),
       isHighlighted: true,
       onClick: props.onClick,
