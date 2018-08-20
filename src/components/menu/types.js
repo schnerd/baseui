@@ -35,7 +35,7 @@ export type OverridesT = {
 };
 
 export type ProfileOverridesT = {
-  ListProfile?: OverrideT<*>,
+  List?: OverrideT<*>,
   ListItemProfile?: OverrideT<*>,
   ProfileImgContainer?: OverrideT<*>,
   ProfileImg?: OverrideT<*>,

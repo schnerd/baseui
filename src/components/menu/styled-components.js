@@ -11,17 +11,13 @@ type StyledListItemPropsT = {
   $isHighlighted: boolean,
 } & StyledPropsT;
 
-const getSharedListStyle = ($theme: ThemeT) => ({
+export const List = styled('ul', ({$theme}: StyledPropsT) => ({
   position: 'relative',
   margin: 0,
+  padding: 0,
   background: $theme.colors.white,
   borderRadius: $theme.borders.radius300,
   boxShadow: $theme.lighting.shadow600,
-});
-
-export const List = styled('ul', ({$theme}: StyledPropsT) => ({
-  ...getSharedListStyle($theme),
-  padding: $theme.sizing.scale600,
 }));
 
 export const ListItem = styled(
@@ -38,25 +34,35 @@ export const ListItem = styled(
     ':hover': {
       color: $theme.colors.primary400,
     },
-    ':not(:last-child)': {
-      marginBottom: $theme.sizing.scale600,
+    paddingTop: $theme.sizing.scale300,
+    paddingBottom: $theme.sizing.scale300,
+    paddingRight: $theme.sizing.scale600,
+    paddingLeft: $theme.sizing.scale600,
+    ':first-child': {
+      paddingTop: $theme.sizing.scale600,
+    },
+    ':last-child': {
+      paddingBottom: $theme.sizing.scale600,
     },
   }),
 );
 
-export const ListProfile = styled('ul', ({$theme}: StyledPropsT) => ({
-  ...getSharedListStyle($theme),
-  padding: $theme.sizing.scale800,
-}));
-
-export const ListItemProfile = styled('li', {
+export const ListItemProfile = styled('li', ({$theme}: StyledPropsT) => ({
   position: 'relative',
   display: 'flex',
   alignItems: 'center',
-  ':not(:last-child)': {
-    marginBottom: '18px',
+  // TODO: verify these styles
+  paddingTop: '9px',
+  paddingBottom: '9px',
+  paddingRight: $theme.sizing.scale800,
+  paddingLeft: $theme.sizing.scale800,
+  ':first-child': {
+    paddingTop: $theme.sizing.scale800,
   },
-});
+  ':last-child': {
+    paddingBottom: $theme.sizing.scale800,
+  },
+}));
 
 export const ProfileImgContainer = styled('div', {
   width: '60px',

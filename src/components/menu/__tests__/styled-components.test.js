@@ -5,7 +5,6 @@ import {
   List,
   ListItem,
   ListItemProfile,
-  ListProfile,
   ProfileBody,
   ProfileImg,
   ProfileTitle,
@@ -50,11 +49,6 @@ describe('Menu Styled Components', () => {
   makeTest({
     title: 'List - basic render',
     component: List,
-  });
-
-  makeTest({
-    title: 'ListProfile - basic render',
-    component: ListProfile,
   });
 
   makeTest({
