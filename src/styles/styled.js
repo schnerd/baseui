@@ -23,7 +23,7 @@ THE SOFTWARE.
 */
 // @flow
 import * as React from 'react';
-import {createStyled, withStyleDeep} from 'styletron-react-core';
+import {createStyled, withStyle, withStyleDeep} from 'styletron-react-core';
 import {driver, getInitialStyle} from 'styletron-standard';
 
 import {ThemeContext} from './theme-provider';
@@ -38,6 +38,8 @@ const wrapper = StyledComponent =>
   };
 
 const baseStyled = createStyled({wrapper, getInitialStyle, driver});
+
+export {withStyle, withStyleDeep};
 
 // TODO: Need a flow expert to help remove this 'any' type
 // eslint-disable-next-line flowtype/no-weak-types

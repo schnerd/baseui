@@ -39,8 +39,7 @@ const getStyles = received => {
     }
 
     const instance = received.instance();
-    const state = instance.state || {};
-    return state.styles || {};
+    return instance.getStyles();
   }
   throw new Error(
     `toHaveStyleRule can only be called on styled components, instead found ${typeof received}`,

@@ -22,6 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 // @flow
-export {default as styled} from './styled';
+export {default as styled, withStyle, withStyleDeep} from './styled';
 export {default as ThemeProvider} from './theme-provider';
 export type {ThemeT} from './types';

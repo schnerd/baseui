@@ -25,51 +25,64 @@ THE SOFTWARE.
 import React from 'react';
 import LIGHT_THEME from '../../themes/light-theme';
 import createMockTheme from '../../test/create-mock-theme';
+import {mergeDeep} from '../../utils/merge-deep';
 
 type ObjOrFnT = {} | (({}) => {});
 
 type PropsT = {$style?: ObjOrFnT};
 
-type StateT = {styles?: {}};
-
 const MOCK_THEME = createMockTheme(LIGHT_THEME);
 
+// eslint-disable-next-line react/require-render-return
+class AbstractMockStyledComponent extends React.Component<PropsT> {
+  static displayName = 'MockStyledComponent';
+
+  getStyleFnArg() {
+    return {...this.props, $theme: MOCK_THEME};
+  }
+
+  getBaseStyles() {
+    throw new Error(
+      'Trying to call getBaseStyles on AbstractMockStyledComponent',
+    );
+  }
+
+  getStyles() {
+    let styles = this.getBaseStyles();
+
+    // Check for runtime overrides
+    let {$style} = this.props;
+    if (typeof $style === 'function') {
+      $style = $style(this.getStyleFnArg());
+    }
+    if ($style) {
+      styles = {...styles, ...$style};
+    }
+
+    return styles;
+  }
+
+  getPassedProps() {
+    const {props} = this;
+    return Object.keys(props).reduce((acc, key) => {
+      if (key[0] !== '$') {
+        acc[key] = props[key];
+      }
+      return acc;
+    }, {});
+  }
+
+  render() {
+    throw new Error('Trying to render AbstractMockStyledComponent');
+  }
+}
+
 function styled(Base: string, objOrFn?: ObjOrFnT = {}) {
-  return class MockStyledComponent extends React.Component<PropsT, StateT> {
-    static displayName = 'MockStyledComponent';
-
-    state = {};
-
-    static getDerivedStateFromProps(props: PropsT) {
-      const styleFnArg = {...props, $theme: MOCK_THEME};
-
-      let styles =
-        typeof objOrFn === 'function' ? objOrFn(styleFnArg) : objOrFn;
-
-      // Check for runtime overrides
-      let {$style} = props;
-      if (typeof $style === 'function') {
-        $style = $style(styleFnArg);
-      }
-      if ($style) {
-        styles = {...styles, ...$style};
-      }
-
-      return {styles};
-    }
-
-    getStyles() {
-      return this.state.styles;
-    }
-
-    getPassedProps() {
-      const {props} = this;
-      return Object.keys(props).reduce((acc, key) => {
-        if (key[0] !== '$') {
-          acc[key] = props[key];
-        }
-        return acc;
-      }, {});
+  return class MockStyledComponent extends AbstractMockStyledComponent {
+    getBaseStyles() {
+      return typeof objOrFn === 'function'
+        ? objOrFn(this.getStyleFnArg())
+        : objOrFn;
     }
 
     render() {
@@ -77,5 +90,40 @@ function styled(Base: string, objOrFn?: ObjOrFnT = {}) {
     }
   };
 }
+
+function withStyle(
+  BaseComponent: Class<AbstractMockStyledComponent>,
+  objOrFn: ObjOrFnT,
+) {
+  return class MockStyledComponent extends BaseComponent {
+    getBaseStyles() {
+      return {
+        ...super.getBaseStyles(),
+        ...(typeof objOrFn === 'function'
+          ? objOrFn(super.getStyleFnArg())
+          : objOrFn),
+      };
+    }
+  };
+}
+
+function withStyleDeep(
+  BaseComponent: Class<AbstractMockStyledComponent>,
+  objOrFn: ObjOrFnT,
+) {
+  return class MockStyledComponent extends BaseComponent {
+    getBaseStyles() {
+      return mergeDeep(
+        {},
+        super.getBaseStyles(),
+        typeof objOrFn === 'function'
+          ? objOrFn(super.getStyleFnArg())
+          : objOrFn,
+      );
+    }
+  };
+}
+
+export {withStyle, withStyleDeep};
 
 export default styled;
